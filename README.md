@@ -9,73 +9,81 @@ The project is built with a frontend application and a Node.js backend connected
 ## 🚀 Features
 
 ### User Authentication
-- User registration
-- User login
-- JWT authentication
-- Access Token
-- Refresh Token
-- Logout
-- Protected routes
+
+* User registration
+* User login
+* JWT authentication
+* Access Token
+* Refresh Token
+* Logout
+* Protected routes
 
 ### Products
-- View all products
-- View product details
-- Search products
-- Filter products by category
-- Filter products by price
-- Compare products
-- Admin product management
-- Create products
-- Update products
-- Delete products
+
+* View all products
+* View product details
+* Search products
+* Filter products by category
+* Filter products by price
+* Compare products
+* Admin product management
+* Create products
+* Update products
+* Delete products
 
 ### Shopping Cart
-- Add products to cart
-- Update product quantity
-- Remove products from cart
-- Clear cart
-- View current cart
+
+* Add products to cart
+* Update product quantity
+* Remove products from cart
+* Clear cart
+* View current cart
 
 ### Orders
-- Create orders from cart
-- View user orders
-- View order details
-- Stock management
-- Order status management
+
+* Create orders from cart
+* View user orders
+* View order details
+* Stock management
+* Order status management
 
 ### Admin
-- Admin authentication
-- Dashboard statistics
-- Total users
-- Total products
-- Total orders
-- Total revenue
-- Manage products
-- Manage orders
-- Update order status
+
+* Admin authentication
+* Dashboard statistics
+* Total users
+* Total products
+* Total orders
+* Total revenue
+* Manage products
+* Manage orders
+* Update order status
 
 ---
 
 ## 🛠️ Technologies
 
 ### Frontend
-- HTML
-- CSS
-- JavaScript
+
+* HTML
+* CSS
+* JavaScript
 
 ### Backend
-- Node.js
-- Express.js
-- MongoDB
-- Mongoose
-- JWT
-- bcryptjs
+
+* Node.js
+* Express.js
+* MongoDB
+* Mongoose
+* JWT
+* bcryptjs
 
 ### Tools
-- Postman
-- MongoDB Compass
-- Git
-- GitHub
+
+* Postman
+* MongoDB Compass
+* Git
+* GitHub
 
 ---
 
@@ -115,19 +123,20 @@ ByteZone/
 │   │   ├── orderRoutes.js
 │   │   └── adminRoutes.js
 │   │
-│   ├── .env
 │   ├── .gitignore
 │   ├── package.json
 │   └── server.js
 │
 └── README.md
-🔐 Authentication
+```
 
-# 💻 ByteZone — Backend API
+---
 
-ByteZone is a full-stack PC Store project that provides a secure backend API for authentication, products, cart management, orders, and admin operations.
+# 💻 Backend API
 
-The backend is built with **Node.js**, **Express**, **MongoDB**, and **JWT Authentication**.
+The ByteZone backend provides a secure API for authentication, products, cart management, orders, and admin operations.
+
+The backend is built with **Node.js**, **Express.js**, **MongoDB**, **Mongoose**, and **JWT Authentication**.
 
 ---
 
@@ -324,8 +333,7 @@ Connect the frontend application with the backend APIs.
 
 **Eslam Rafat**
 
-GitHub:
-https://github.com/eslamrafat2
+GitHub: [eslamrafat2](https://github.com/eslamrafat2)
 
 ---
 
