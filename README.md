@@ -254,7 +254,7 @@ JWT_REFRESH_EXPIRES_IN=7d
 FRONTEND_URL=http://127.0.0.1:5500
 ```
 
-> ⚠️ **Important:** Never upload your `.env` file to GitHub.
+> 
 
 ---
 
