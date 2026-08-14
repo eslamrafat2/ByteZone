@@ -123,111 +123,158 @@ ByteZone/
 └── README.md
 🔐 Authentication
 
-ByteZone uses JWT authentication.
+# 💻 ByteZone — Backend API
 
-Access Token
+ByteZone is a full-stack PC Store project that provides a secure backend API for authentication, products, cart management, orders, and admin operations.
+
+The backend is built with **Node.js**, **Express**, **MongoDB**, and **JWT Authentication**.
+
+---
+
+## 🔐 Authentication
+
+ByteZone uses **JWT Authentication** with Access Tokens and Refresh Tokens.
+
+### Access Token
 
 Used to access protected APIs.
 
-Default expiration:
+**Default expiration:** `15 minutes`
 
-15 minutes
-Refresh Token
+### Refresh Token
 
 Used to generate a new Access Token.
 
-Default expiration:
+**Default expiration:** `7 days`
 
-7 days
-🔗 API Endpoints
-Authentication
-Method	Endpoint	Description
-POST	/api/auth/register	Register a new user
-POST	/api/auth/login	Login
-POST	/api/auth/refresh-token	Generate new access token
-POST	/api/auth/logout	Logout
-Products
-Method	Endpoint	Description
-GET	/api/products	Get all products
-GET	/api/products/:id	Get product by ID
-GET	/api/products/compare	Compare products
-POST	/api/products	Create product
-PUT	/api/products/:id	Update product
-DELETE	/api/products/:id	Delete product
-Cart
-Method	Endpoint	Description
-GET	/api/cart	Get user cart
-POST	/api/cart	Add product to cart
-PUT	/api/cart/:productId	Update quantity
-DELETE	/api/cart/:productId	Remove product
-DELETE	/api/cart	Clear cart
-Orders
-Method	Endpoint	Description
-POST	/api/orders	Create order
-GET	/api/orders	Get user orders
-GET	/api/orders/:id	Get order details
-Admin
-Method	Endpoint	Description
-GET	/api/admin/dashboard	Dashboard statistics
-GET	/api/admin/orders	Get all orders
-PUT	/api/admin/orders/:id	Update order status
-⚙️ Installation
+---
 
-Clone the repository:
+## 🔗 API Endpoints
 
+### Authentication
+
+| Method | Endpoint                  | Description                 |
+| ------ | ------------------------- | --------------------------- |
+| `POST` | `/api/auth/register`      | Register a new user         |
+| `POST` | `/api/auth/login`         | Login                       |
+| `POST` | `/api/auth/refresh-token` | Generate a new access token |
+| `POST` | `/api/auth/logout`        | Logout                      |
+
+### Products
+
+| Method   | Endpoint                | Description       |
+| -------- | ----------------------- | ----------------- |
+| `GET`    | `/api/products`         | Get all products  |
+| `GET`    | `/api/products/:id`     | Get product by ID |
+| `GET`    | `/api/products/compare` | Compare products  |
+| `POST`   | `/api/products`         | Create a product  |
+| `PUT`    | `/api/products/:id`     | Update a product  |
+| `DELETE` | `/api/products/:id`     | Delete a product  |
+
+### Cart
+
+| Method   | Endpoint               | Description              |
+| -------- | ---------------------- | ------------------------ |
+| `GET`    | `/api/cart`            | Get user cart            |
+| `POST`   | `/api/cart`            | Add product to cart      |
+| `PUT`    | `/api/cart/:productId` | Update product quantity  |
+| `DELETE` | `/api/cart/:productId` | Remove product from cart |
+| `DELETE` | `/api/cart`            | Clear cart               |
+
+### Orders
+
+| Method | Endpoint          | Description       |
+| ------ | ----------------- | ----------------- |
+| `POST` | `/api/orders`     | Create an order   |
+| `GET`  | `/api/orders`     | Get user orders   |
+| `GET`  | `/api/orders/:id` | Get order details |
+
+### Admin
+
+| Method | Endpoint                | Description              |
+| ------ | ----------------------- | ------------------------ |
+| `GET`  | `/api/admin/dashboard`  | Get dashboard statistics |
+| `GET`  | `/api/admin/orders`     | Get all orders           |
+| `PUT`  | `/api/admin/orders/:id` | Update order status      |
+
+---
+
+## ⚙️ Installation
+
+### 1. Clone the Repository
+
+```bash
 git clone https://github.com/eslamrafat2/ByteZone.git
+```
 
-Go to the project:
+### 2. Go to the Project
 
+```bash
 cd ByteZone
+```
 
-Go to the backend:
+### 3. Go to the Backend
 
+```bash
 cd Backend
+```
 
-Install dependencies:
+### 4. Install Dependencies
 
+```bash
 npm install
-🔑 Environment Variables
+```
 
-Create a .env file inside the Backend folder:
+---
 
+## 🔑 Environment Variables
+
+Create a `.env` file inside the `Backend` folder:
+
+```env
 PORT=3000
 
-
 MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
-
 
 JWT_ACCESS_SECRET=YOUR_ACCESS_SECRET
 JWT_REFRESH_SECRET=YOUR_REFRESH_SECRET
 
-
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
-
 FRONTEND_URL=http://127.0.0.1:5500
+```
 
-Never upload your .env file to GitHub.
+> ⚠️ **Important:** Never upload your `.env` file to GitHub.
 
-▶️ Run the Backend
+---
 
-Inside the Backend folder:
+## ▶️ Run the Backend
 
+Inside the `Backend` folder, run:
+
+```bash
 node server.js
+```
 
 The server will run on:
 
+```text
 http://localhost:3000
-🧪 Testing
+```
 
-The APIs can be tested using:
+---
 
-Postman
-MongoDB Compass
+## 🧪 API Testing
 
-Recommended testing flow:
+The API can be tested using:
 
+* **Postman**
+* **MongoDB Compass**
+
+### Recommended Testing Flow
+
+```text
 Register
    ↓
 Login
@@ -241,35 +288,47 @@ View Cart
 Create Order
    ↓
 View Orders
-🔒 Security
+```
 
-The project includes:
+---
 
-Password hashing with bcrypt
-JWT authentication
-Protected routes
-Admin authorization
-HTTP-only Refresh Token cookie
-CORS
-Helmet
-Rate limiting
-Environment variables for sensitive information
-📌 Project Status
+## 🔒 Security
 
-🚧 In Development
+The project includes several security features:
 
-The backend API is implemented and tested with Postman.
+* Password hashing with **bcrypt**
+* **JWT Authentication**
+* Protected routes
+* Admin authorization
+* HTTP-only Refresh Token cookie
+* **CORS**
+* **Helmet**
+* Rate limiting
+* Environment variables for sensitive information
 
-The next step is connecting the frontend with the backend APIs.
+---
 
-👨‍💻 Author
+## 📌 Project Status
 
-Eslam Rafat
+🚧 **In Development**
+
+The backend API has been implemented and tested using **Postman**.
+
+### Next Step
+
+Connect the frontend application with the backend APIs.
+
+---
+
+## 👨‍💻 Author
+
+**Eslam Rafat**
 
 GitHub:
-
 https://github.com/eslamrafat2
 
-📄 License
+---
 
-This project is created for educational and portfolio purposes.
+## 📄 License
+
+This project is created for **educational and portfolio purposes**.
