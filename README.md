@@ -77,8 +77,6 @@ Built with **Angular**, **Node.js / Express**, and **MongoDB**, ByteZone provide
 
 ### 🤖 Integrations
 
-- OpenAI integration
-- Telegram Bot API integration
 
 ---
 
