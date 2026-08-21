@@ -4,7 +4,7 @@
 
 Built with **Angular**, **Node.js / Express**, and **MongoDB**, ByteZone provides a complete shopping experience with authentication, cart and checkout, orders, reviews, product comparison, image uploads, and an admin dashboard.
 
-> **Repository:** https://github.com/eslamrafat2/ByteZone
+
 
 ---
 
@@ -199,15 +199,7 @@ Create a `.env` file inside `Backend/`.
 
 Example configuration:
 
-```env
-PORT=3000
-MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
-JWT_ACCESS_SECRET=YOUR_ACCESS_SECRET
-JWT_REFRESH_SECRET=YOUR_REFRESH_SECRET
-JWT_ACCESS_EXPIRES_IN=15m
-JWT_REFRESH_EXPIRES_IN=7d
-FRONTEND_URL=http://localhost:4200
-```
+
 
 Add any additional variables required by the enabled integrations.
 
@@ -325,12 +317,7 @@ Production environment variables should be configured through Render's Environme
 
 ---
 
-# 🔒 Security Notes
 
-- Never expose real database credentials, JWT secrets, API keys, or bot tokens in a public repository.
-- Use environment variables for sensitive configuration.
-- Do not commit production secrets.
-- Keep backend authentication and admin routes protected.
 
 ---
 
@@ -346,8 +333,7 @@ ByteZone is a full-stack hardware e-commerce project developed for educational, 
 
 **Eslam Rafat**
 
-- GitHub: https://github.com/eslamrafat2
-- Repository: https://github.com/eslamrafat2/ByteZone
+
 
 ---
 
