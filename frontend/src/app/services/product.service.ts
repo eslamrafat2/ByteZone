@@ -3,6 +3,7 @@ import { HttpClient, HttpParams } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
 import { Product } from '../shared/models/product.model';
+import { API_URL } from '../core/api.config';
 
 export type ProductAvailability = 'inStock' | 'outOfStock';
 export type ProductSort = 'default' | 'priceAsc' | 'priceDesc' | 'nameAsc' | 'nameDesc' | 'newest';
@@ -31,20 +32,10 @@ export interface ProductsResponse {
   products: Product[];
 }
 
-interface ProductResponse {
-  status: string;
-  product: Product;
-}
+interface ProductResponse { status: string; product: Product; }
+interface CompareProductsResponse { status: string; products: Product[]; }
 
-interface CompareProductsResponse {
-  status: string;
-  products: Product[];
-}
-
-export interface ProductReviewPayload {
-  rating: number;
-  comment: string;
-}
+export interface ProductReviewPayload { rating: number; comment: string; }
 
 export interface ProductReviewsResponse {
   status: string;
@@ -59,24 +50,16 @@ export interface ProductReviewsResponse {
   }>;
 }
 
-@Injectable({
-  providedIn: 'root'
-})
+@Injectable({ providedIn: 'root' })
 export class ProductService {
-
   private readonly http = inject(HttpClient);
-
-  private readonly apiUrl = 'http://localhost:3000/api/products';
+  private readonly apiUrl = `${API_URL}/products`;
 
   getProducts(query: ProductsQuery = {}): Observable<ProductsResponse> {
     let params = new HttpParams();
-
     for (const [key, value] of Object.entries(query)) {
-      if (value !== undefined && value !== '') {
-        params = params.set(key, value);
-      }
+      if (value !== undefined && value !== '') params = params.set(key, value);
     }
-
     return this.http.get<ProductsResponse>(this.apiUrl, { params });
   }
 
@@ -86,7 +69,6 @@ export class ProductService {
 
   compareProducts(ids: string[]): Observable<CompareProductsResponse> {
     const params = new HttpParams().set('ids', ids.join(','));
-
     return this.http.get<CompareProductsResponse>(`${this.apiUrl}/compare`, { params });
   }
 
