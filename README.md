@@ -1,89 +1,138 @@
 # ByteZone 🖥️
 
-ByteZone is a full-stack e-commerce project for browsing and purchasing computer hardware and components.
+**ByteZone** is a full-stack e-commerce platform for browsing, comparing, and purchasing computer hardware and components.
 
-The project is built with a frontend application and a Node.js backend connected to MongoDB.
+The project is built with a modern **Angular frontend** and a **Node.js / Express backend** connected to **MongoDB**. It includes customer shopping flows, authentication, orders, reviews, and a dedicated admin dashboard.
 
----
-
-## 🚀 Features
-
-### User Authentication
-
-* User registration
-* User login
-* JWT authentication
-* Access Token
-* Refresh Token
-* Logout
-* Protected routes
-
-### Products
-
-* View all products
-* View product details
-* Search products
-* Filter products by category
-* Filter products by price
-* Compare products
-* Admin product management
-* Create products
-* Update products
-* Delete products
-
-### Shopping Cart
-
-* Add products to cart
-* Update product quantity
-* Remove products from cart
-* Clear cart
-* View current cart
-
-### Orders
-
-* Create orders from cart
-* View user orders
-* View order details
-* Stock management
-* Order status management
-
-### Admin
-
-* Admin authentication
-* Dashboard statistics
-* Total users
-* Total products
-* Total orders
-* Total revenue
-* Manage products
-* Manage orders
-* Update order status
+> **Project:** ByteZone Hardware Store  
+> **Repository:** https://github.com/eslamrafat2/ByteZone
 
 ---
 
-## 🛠️ Technologies
+## ✨ Features
+
+### 🏠 Storefront
+
+- Responsive home page
+- Hero image slider with automatic transitions
+- Animated hero content
+- Product categories slider
+- Featured products section
+- Product search
+- Product filtering
+- Responsive product cards
+- Product details pages
+- Product comparison
+- Responsive navigation across desktop, tablet, and mobile
+- Local static product/store images included in the frontend
+
+### 🔐 Authentication & Account
+
+- User registration
+- User login
+- JWT-based authentication
+- Access and refresh token flow
+- Logout
+- Protected routes
+- Profile page
+- Account dropdown in the navigation bar
+- My Orders page
+- Admin dashboard access for administrator accounts
+
+### 🛒 Shopping
+
+- Add products to cart
+- Update quantities
+- Remove products
+- Clear cart
+- Checkout flow
+- Customer delivery information
+- Order creation
+- Order history
+- Full order details and totals
+
+### ⭐ Reviews
+
+- Customer product reviews
+- Rating and comments
+- Admin review moderation
+- Approve or delete reviews
+
+### 🛠️ Admin Dashboard
+
+- Dashboard overview
+- Total products
+- Total users
+- Total orders
+- Revenue statistics
+- Recent orders
+- Product management
+- Create products
+- Update products
+- Delete products
+- Product image upload
+- Order management
+- Update order status
+- User management
+- Review moderation
+
+Supported order statuses:
+
+```text
+pending
+processing
+completed
+cancelled
+```
+
+### 📄 Informational Pages
+
+- Contact page
+- Policy page
+- Responsive footer
+- Consistent responsive UI across the application
+
+---
+
+## 🧱 Tech Stack
 
 ### Frontend
 
-* HTML
-* CSS
-* JavaScript
+- Angular 22
+- TypeScript
+- HTML5
+- CSS3
+- Angular Router
+- Angular Forms
+- RxJS
+- Responsive CSS
 
 ### Backend
 
-* Node.js
-* Express.js
-* MongoDB
-* Mongoose
-* JWT
-* bcryptjs
+- Node.js
+- Express 5
+- MongoDB
+- Mongoose
+- JWT
+- bcryptjs
+- Multer
+- Helmet
+- CORS
+- Express Rate Limit
+- Cookie Parser
+- dotenv
+- OpenAI integration
+- Telegram Bot API integration
 
-### Tools
+### Development Tools
 
-* Postman
-* MongoDB Compass
-* Git
-* GitHub
+- Git
+- GitHub
+- Visual Studio Code
+- Postman
+- MongoDB Compass
+- npm
+- Vercel for frontend deployment
 
 ---
 
@@ -92,153 +141,84 @@ The project is built with a frontend application and a Node.js backend connected
 ```text
 ByteZone/
 │
-├── Frontend/
-│   └── ...
-│
 ├── Backend/
 │   ├── config/
-│   │   └── db.js
-│   │
 │   ├── controllers/
-│   │   ├── authController.js
-│   │   ├── productController.js
-│   │   ├── cartController.js
-│   │   ├── orderController.js
-│   │   └── adminController.js
-│   │
-│   ├── middelwares/
-│   │   ├── auth.middleware.js
-│   │   └── admin.middleware.js
-│   │
+│   ├── middleware/
 │   ├── models/
-│   │   ├── User.js
-│   │   ├── Product.js
-│   │   ├── Cart.js
-│   │   └── Order.js
-│   │
 │   ├── routes/
-│   │   ├── authRoutes.js
-│   │   ├── productRoutes.js
-│   │   ├── cartRoutes.js
-│   │   ├── orderRoutes.js
-│   │   └── adminRoutes.js
-│   │
-│   ├── .gitignore
+│   ├── services/
+│   ├── uploads/
+│   ├── .env
 │   ├── package.json
 │   └── server.js
 │
+├── frontend/
+│   ├── public/
+│   ├── src/
+│   │   ├── app/
+│   │   │   ├── layout/
+│   │   │   ├── pages/
+│   │   │   ├── services/
+│   │   │   └── shared/
+│   │   ├── main.ts
+│   │   └── styles.css
+│   ├── angular.json
+│   ├── package.json
+│   └── tsconfig.json
+│
+├── .gitignore
 └── README.md
 ```
 
----
-
-# 💻 Backend API
-
-The ByteZone backend provides a secure API for authentication, products, cart management, orders, and admin operations.
-
-The backend is built with **Node.js**, **Express.js**, **MongoDB**, **Mongoose**, and **JWT Authentication**.
+> The exact internal folders may evolve as the project is developed. The structure above describes the main application organization.
 
 ---
 
-## 🔐 Authentication
+# 🚀 Getting Started
 
-ByteZone uses **JWT Authentication** with Access Tokens and Refresh Tokens.
+## Prerequisites
 
-### Access Token
+Make sure you have installed:
 
-Used to access protected APIs.
+- Node.js
+- npm
+- MongoDB or a MongoDB Atlas database
+- Git
 
-**Default expiration:** `15 minutes`
+Check your versions:
 
-### Refresh Token
-
-Used to generate a new Access Token.
-
-**Default expiration:** `7 days`
-
----
-
-## 🔗 API Endpoints
-
-### Authentication
-
-| Method | Endpoint                  | Description                 |
-| ------ | ------------------------- | --------------------------- |
-| `POST` | `/api/auth/register`      | Register a new user         |
-| `POST` | `/api/auth/login`         | Login                       |
-| `POST` | `/api/auth/refresh-token` | Generate a new access token |
-| `POST` | `/api/auth/logout`        | Logout                      |
-
-### Products
-
-| Method   | Endpoint                | Description       |
-| -------- | ----------------------- | ----------------- |
-| `GET`    | `/api/products`         | Get all products  |
-| `GET`    | `/api/products/:id`     | Get product by ID |
-| `GET`    | `/api/products/compare` | Compare products  |
-| `POST`   | `/api/products`         | Create a product  |
-| `PUT`    | `/api/products/:id`     | Update a product  |
-| `DELETE` | `/api/products/:id`     | Delete a product  |
-
-### Cart
-
-| Method   | Endpoint               | Description              |
-| -------- | ---------------------- | ------------------------ |
-| `GET`    | `/api/cart`            | Get user cart            |
-| `POST`   | `/api/cart`            | Add product to cart      |
-| `PUT`    | `/api/cart/:productId` | Update product quantity  |
-| `DELETE` | `/api/cart/:productId` | Remove product from cart |
-| `DELETE` | `/api/cart`            | Clear cart               |
-
-### Orders
-
-| Method | Endpoint          | Description       |
-| ------ | ----------------- | ----------------- |
-| `POST` | `/api/orders`     | Create an order   |
-| `GET`  | `/api/orders`     | Get user orders   |
-| `GET`  | `/api/orders/:id` | Get order details |
-
-### Admin
-
-| Method | Endpoint                | Description              |
-| ------ | ----------------------- | ------------------------ |
-| `GET`  | `/api/admin/dashboard`  | Get dashboard statistics |
-| `GET`  | `/api/admin/orders`     | Get all orders           |
-| `PUT`  | `/api/admin/orders/:id` | Update order status      |
+```bash
+node -v
+npm -v
+git --version
+```
 
 ---
 
-## ⚙️ Installation
-
-### 1. Clone the Repository
+## 1. Clone the Repository
 
 ```bash
 git clone https://github.com/eslamrafat2/ByteZone.git
-```
-
-### 2. Go to the Project
-
-```bash
 cd ByteZone
 ```
 
-### 3. Go to the Backend
+---
+
+## 2. Install Backend Dependencies
 
 ```bash
 cd Backend
-```
-
-### 4. Install Dependencies
-
-```bash
 npm install
 ```
 
 ---
 
-## 🔑 Environment Variables
+## 3. Configure Backend Environment Variables
 
-Create a `.env` file inside the `Backend` folder:
+Create a `.env` file inside the `Backend` directory.
+
+Example:
 
 ```env
 PORT=3000
@@ -251,22 +231,30 @@ JWT_REFRESH_SECRET=YOUR_REFRESH_SECRET
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
 
-FRONTEND_URL=http://127.0.0.1:5500
+FRONTEND_URL=http://localhost:4200
 ```
 
-> 
+Add any other environment variables required by the enabled OpenAI or Telegram integrations.
+
+**Never publish real production secrets, API keys, database credentials, or bot tokens in a public repository.**
 
 ---
 
-## ▶️ Run the Backend
+## 4. Start the Backend
 
-Inside the `Backend` folder, run:
+Development mode:
 
 ```bash
-node server.js
+npm run dev
 ```
 
-The server will run on:
+Or normal mode:
+
+```bash
+npm start
+```
+
+The local API runs on:
 
 ```text
 http://localhost:3000
@@ -274,69 +262,139 @@ http://localhost:3000
 
 ---
 
-## 🧪 API Testing
+## 5. Install Frontend Dependencies
 
-The API can be tested using:
+Open another terminal from the project root:
 
-* **Postman**
-* **MongoDB Compass**
-
-### Recommended Testing Flow
-
-```text
-Register
-   ↓
-Login
-   ↓
-Get Products
-   ↓
-Add Product to Cart
-   ↓
-View Cart
-   ↓
-Create Order
-   ↓
-View Orders
+```bash
+cd frontend
+npm install
 ```
 
 ---
 
-## 🔒 Security
+## 6. Start the Frontend
 
-The project includes several security features:
+```bash
+npm start
+```
 
-* Password hashing with **bcrypt**
-* **JWT Authentication**
-* Protected routes
-* Admin authorization
-* HTTP-only Refresh Token cookie
-* **CORS**
-* **Helmet**
-* Rate limiting
-* Environment variables for sensitive information
+The Angular development server will normally be available at:
+
+```text
+http://localhost:4200
+```
 
 ---
 
-## 📌 Project Status
+# 🔗 Main API Areas
 
-🚧 **In Development**
+The backend is organized around the following API areas:
 
-The backend API has been implemented and tested using **Postman**.
+| Area | Example Base Route | Purpose |
+|---|---|---|
+| Authentication | `/api/auth` | Registration, login, tokens, logout |
+| Products | `/api/products` | Product listing, details, search, comparison, management |
+| Cart | `/api/cart` | Shopping cart operations |
+| Orders | `/api/orders` | Customer orders and order details |
+| Admin | `/api/admin` | Dashboard, users, products, orders, reviews |
+| Reviews | `/api/reviews` / admin review routes | Product reviews and moderation |
 
-### Next Step
-
-Connect the frontend application with the backend APIs.
+The exact endpoints should be checked against the current route files in `Backend/routes` when integrating external clients.
 
 ---
 
-## 👨‍💻 Author
+# 🔐 Security
+
+ByteZone includes several backend security measures, including:
+
+- Password hashing with bcryptjs
+- JWT authentication
+- Refresh-token handling
+- Protected API routes
+- Admin authorization
+- HTTP-only cookies where applicable
+- Helmet security headers
+- CORS configuration
+- Rate limiting
+- Environment variables for sensitive configuration
+
+---
+
+# 🧪 Testing & Development
+
+Recommended tools:
+
+### Postman
+
+Use Postman to test backend endpoints independently from the Angular frontend.
+
+### MongoDB Compass
+
+Useful for inspecting users, products, carts, orders, and other MongoDB collections during development.
+
+### Angular Build
+
+To verify the production frontend build:
+
+```bash
+cd frontend
+npm run build
+```
+
+The generated Angular production files are written under the `dist` directory.
+
+---
+
+# 🌐 Deployment
+
+## Frontend
+
+The Angular frontend can be deployed to **Vercel** with the project root set to:
+
+```text
+frontend
+```
+
+For the current Angular production build, the generated browser output is under:
+
+```text
+frontend/dist/frontend/browser
+```
+
+## Backend
+
+The Node.js backend can be deployed separately to a Node-compatible hosting provider.
+
+Production environment variables should be configured through the hosting provider's environment-variable settings rather than committed to source control.
+
+---
+
+# 🖼️ Assets
+
+Most static storefront images are stored locally in the Angular frontend under `frontend/public` and are bundled with the frontend deployment.
+
+Backend-uploaded images are handled separately by the backend upload system.
+
+---
+
+# 📌 Project Status
+
+🚧 **Active development**
+
+ByteZone is being developed as a full-stack e-commerce and portfolio project. The application includes the main shopping experience, authentication, cart and checkout flows, customer orders, reviews, and administration features.
+
+---
+
+# 👨‍💻 Author
 
 **Eslam Rafat**
 
-GitHub: [eslamrafat2](https://github.com/eslamrafat2)
+- GitHub: https://github.com/eslamrafat2
+- Project: https://github.com/eslamrafat2/ByteZone
 
 ---
 
-## 📄 License
+# 📄 License
 
 This project is created for **educational and portfolio purposes**.
