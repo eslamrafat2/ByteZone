@@ -1,6 +1,6 @@
 import { Component, inject, signal } from '@angular/core';
-import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { CurrencyPipe } from '@angular/common';
+import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { AdminService } from '../../../services/admin.service';
 import { ProductService } from '../../../services/product.service';
 import { Product } from '../../../shared/models/product.model';
@@ -16,6 +16,7 @@ export class AdminProducts {
   private readonly service = inject(AdminService);
   private readonly productService = inject(ProductService);
   private readonly fb = inject(FormBuilder);
+
   readonly products = signal<Product[]>([]);
   readonly editingId = signal('');
   readonly formVisible = signal(false);
@@ -25,6 +26,7 @@ export class AdminProducts {
   readonly saving = signal('');
   readonly uploading = signal(false);
   readonly imagePreview = signal('');
+
   readonly form = this.fb.group({
     name: ['', [Validators.required, Validators.minLength(2)]],
     category: ['', Validators.required],
@@ -33,10 +35,17 @@ export class AdminProducts {
     stock: [0, [Validators.required, Validators.min(0)]],
     image: [''],
     description: [''],
+    specifications: this.fb.array([]),
   });
+
   constructor() {
     this.load();
   }
+
+  get specifications(): FormArray {
+    return this.form.controls.specifications;
+  }
+
   load() {
     this.loading.set(true);
     this.productService.getProducts({ limit: 100 }).subscribe({
@@ -50,6 +59,7 @@ export class AdminProducts {
       },
     });
   }
+
   startCreate() {
     this.editingId.set('');
     this.formVisible.set(true);
@@ -63,7 +73,10 @@ export class AdminProducts {
       image: '',
       description: '',
     });
+    this.clearSpecifications();
+    this.addSpecification();
   }
+
   startEdit(p: Product) {
     this.editingId.set(p._id);
     this.formVisible.set(true);
@@ -77,19 +90,53 @@ export class AdminProducts {
       image: p.image,
       description: p.description,
     });
+
+    this.clearSpecifications();
+    for (const [name, value] of Object.entries(p.specifications || {})) {
+      this.addSpecification(name, String(value ?? ''));
+    }
+    if (!this.specifications.length) {
+      this.addSpecification();
+    }
+
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
+
+  addSpecification(name = '', value = '') {
+    this.specifications.push(
+      this.fb.group({
+        name: [name],
+        value: [value],
+      }),
+    );
+  }
+
+  removeSpecification(index: number) {
+    this.specifications.removeAt(index);
+    if (!this.specifications.length) {
+      this.addSpecification();
+    }
+  }
+
+  clearSpecifications() {
+    while (this.specifications.length) {
+      this.specifications.removeAt(0);
+    }
+  }
+
   cancel() {
     this.formVisible.set(false);
     this.editingId.set('');
     this.imagePreview.set('');
   }
+
   imageUrl(image?: string) {
     if (!image) return '';
     if (image.startsWith('/uploads/')) return `https://bytezone.onrender.com${image}`;
     if (image.startsWith('http')) return image;
     return `/images/products/${image}`;
   }
+
   onImageSelected(event: Event) {
     const input = event.target as HTMLInputElement;
     const file = input.files?.[0];
@@ -112,12 +159,24 @@ export class AdminProducts {
       },
     });
   }
+
   save() {
     if (this.form.invalid || this.uploading()) {
       this.form.markAllAsTouched();
       return;
     }
+
     const v = this.form.getRawValue();
+    const specifications: Record<string, string> = {};
+
+    for (const specification of v.specifications || []) {
+      const name = String(specification?.name || '').trim();
+      const value = String(specification?.value || '').trim();
+      if (name && value) {
+        specifications[name] = value;
+      }
+    }
+
     const payload: Partial<Product> = {
       name: v.name!.trim(),
       category: v.category!.trim(),
@@ -126,8 +185,9 @@ export class AdminProducts {
       stock: Number(v.stock),
       image: v.image?.trim() || '',
       description: v.description?.trim() || '',
-      specifications: {},
+      specifications,
     };
+
     const id = this.editingId();
     this.saving.set('product');
     const req = id ? this.service.updateProduct(id, payload) : this.service.createProduct(payload);
@@ -144,6 +204,7 @@ export class AdminProducts {
       },
     });
   }
+
   remove(p: Product) {
     if (!confirm(`Delete "${p.name}"?`)) return;
     this.saving.set(p._id);
