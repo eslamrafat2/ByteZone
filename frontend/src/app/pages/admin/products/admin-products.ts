@@ -86,7 +86,7 @@ export class AdminProducts {
   }
   imageUrl(image?: string) {
     if (!image) return '';
-    if (image.startsWith('/uploads/')) return `http://localhost:3000${image}`;
+    if (image.startsWith('/uploads/')) return `https://bytezone.onrender.com${image}`;
     if (image.startsWith('http')) return image;
     return `/images/products/${image}`;
   }
@@ -103,7 +103,7 @@ export class AdminProducts {
     this.service.uploadProductImage(file).subscribe({
       next: (url) => {
         this.form.patchValue({ image: url });
-        this.imagePreview.set(`http://localhost:3000${url}`);
+        this.imagePreview.set(this.imageUrl(url));
         this.uploading.set(false);
       },
       error: (e) => {
