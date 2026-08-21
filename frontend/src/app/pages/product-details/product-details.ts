@@ -80,7 +80,15 @@ export class ProductDetails {
             return '';
         }
 
-        return result.image.startsWith('/uploads/') ? `http://localhost:3000${result.image}` : `/images/products/${result.image}`;
+        if (result.image.startsWith('/uploads/')) {
+            return `https://bytezone.onrender.com${result.image}`;
+        }
+
+        if (/^https?:\/\//i.test(result.image)) {
+            return result.image;
+        }
+
+        return `/images/products/${result.image}`;
     });
 
     readonly productInCompare = computed(() => {
