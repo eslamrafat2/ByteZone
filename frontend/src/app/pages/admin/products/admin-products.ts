@@ -170,8 +170,9 @@ export class AdminProducts {
     const specifications: Record<string, string> = {};
 
     for (const specification of v.specifications || []) {
-      const name = String(specification?.name || '').trim();
-      const value = String(specification?.value || '').trim();
+      const spec = specification as { name?: unknown; value?: unknown };
+      const name = String(spec.name || '').trim();
+      const value = String(spec.value || '').trim();
       if (name && value) {
         specifications[name] = value;
       }
