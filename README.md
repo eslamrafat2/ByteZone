@@ -75,9 +75,18 @@ Built with **Angular**, **Node.js / Express**, and **MongoDB**, ByteZone provide
 - Review moderation
 - Sales and revenue overview
 
-### 🤖 Integrations
+### 🤖 Smart Shopping Assistant
 
+ByteZone includes a custom-built shopping assistant connected directly to the product database.
 
+It understands user requests in Arabic and English, detects criteria such as:
+- Product type
+- Brand
+- Budget
+- Specifications
+- Usage
+
+It then searches and recommends the most suitable products using the custom matching engine.
 ---
 
 ## 🧱 Tech Stack
