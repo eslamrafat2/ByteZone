@@ -2,44 +2,41 @@
 
 **ByteZone** is a full-stack e-commerce platform for browsing, comparing, and purchasing computer hardware and components.
 
-The project is built with a modern **Angular frontend** and a **Node.js / Express backend** connected to **MongoDB**. It includes customer shopping flows, authentication, orders, reviews, and a dedicated admin dashboard.
+Built with **Angular**, **Node.js / Express**, and **MongoDB**, ByteZone provides a complete shopping experience with authentication, cart and checkout, orders, reviews, product comparison, image uploads, and an admin dashboard.
 
-> **Project:** ByteZone Hardware Store  
 > **Repository:** https://github.com/eslamrafat2/ByteZone
 
 ---
 
 ## ✨ Features
 
-### 🏠 Storefront
+### 🛍️ Storefront
 
 - Responsive home page
-- Hero image slider with automatic transitions
-- Animated hero content
-- Product categories slider
-- Featured products section
-- Product search
-- Product filtering
-- Responsive product cards
+- Hero slider with automatic transitions
+- Product categories
+- Featured products
+- Product search and filtering
+- Brand and category filtering
+- Price and availability filters
+- Product sorting
 - Product details pages
 - Product comparison
-- Responsive navigation across desktop, tablet, and mobile
-- Local static product/store images included in the frontend
+- Responsive product cards
+- Responsive navigation and footer
 
-### 🔐 Authentication & Account
+### 🔐 Authentication
 
-- User registration
-- User login
+- User registration and login
 - JWT-based authentication
 - Access and refresh token flow
 - Logout
 - Protected routes
-- Profile page
-- Account dropdown in the navigation bar
-- My Orders page
-- Admin dashboard access for administrator accounts
+- User profile
+- My Orders
+- Role-based admin access
 
-### 🛒 Shopping
+### 🛒 Shopping & Checkout
 
 - Add products to cart
 - Update quantities
@@ -49,48 +46,39 @@ The project is built with a modern **Angular frontend** and a **Node.js / Expres
 - Customer delivery information
 - Order creation
 - Order history
-- Full order details and totals
+- Order details and totals
 
 ### ⭐ Reviews
 
-- Customer product reviews
-- Rating and comments
+- Product ratings and comments
+- Review eligibility checks
 - Admin review moderation
 - Approve or delete reviews
+
+### ⚖️ Product Comparison
+
+- Compare up to 4 products
+- Compare price, brand, category, stock, and dynamic specifications
+- Highlight differences between products
+- View product details directly from comparison
 
 ### 🛠️ Admin Dashboard
 
 - Dashboard overview
-- Total products
-- Total users
-- Total orders
-- Revenue statistics
-- Recent orders
 - Product management
-- Create products
-- Update products
-- Delete products
+- Create, edit, and delete products
 - Product image upload
+- Dynamic product specifications
 - Order management
 - Update order status
 - User management
 - Review moderation
+- Sales and revenue overview
 
-Supported order statuses:
+### 🤖 Integrations
 
-```text
-pending
-processing
-completed
-cancelled
-```
-
-### 📄 Informational Pages
-
-- Contact page
-- Policy page
-- Responsive footer
-- Consistent responsive UI across the application
+- OpenAI integration
+- Telegram Bot API integration
 
 ---
 
@@ -103,9 +91,8 @@ cancelled
 - HTML5
 - CSS3
 - Angular Router
-- Angular Forms
+- Angular Reactive Forms
 - RxJS
-- Responsive CSS
 
 ### Backend
 
@@ -121,18 +108,16 @@ cancelled
 - Express Rate Limit
 - Cookie Parser
 - dotenv
-- OpenAI integration
-- Telegram Bot API integration
 
-### Development Tools
+### Tools & Deployment
 
-- Git
-- GitHub
+- Git / GitHub
 - Visual Studio Code
 - Postman
 - MongoDB Compass
 - npm
-- Vercel for frontend deployment
+- Vercel — Frontend
+- Render — Backend
 
 ---
 
@@ -171,22 +156,20 @@ ByteZone/
 └── README.md
 ```
 
-> The exact internal folders may evolve as the project is developed. The structure above describes the main application organization.
-
 ---
 
-# 🚀 Getting Started
+# 🚀 Local Setup
 
 ## Prerequisites
 
-Make sure you have installed:
+Install:
 
 - Node.js
 - npm
-- MongoDB or a MongoDB Atlas database
 - Git
+- MongoDB or MongoDB Atlas
 
-Check your versions:
+Verify installation:
 
 ```bash
 node -v
@@ -205,56 +188,42 @@ cd ByteZone
 
 ---
 
-## 2. Install Backend Dependencies
+## 2. Backend Setup
 
 ```bash
 cd Backend
 npm install
 ```
 
----
+Create a `.env` file inside `Backend/`.
 
-## 3. Configure Backend Environment Variables
-
-Create a `.env` file inside the `Backend` directory.
-
-Example:
+Example configuration:
 
 ```env
 PORT=3000
-
 MONGO_URI=YOUR_MONGODB_CONNECTION_STRING
-
 JWT_ACCESS_SECRET=YOUR_ACCESS_SECRET
 JWT_REFRESH_SECRET=YOUR_REFRESH_SECRET
-
 JWT_ACCESS_EXPIRES_IN=15m
 JWT_REFRESH_EXPIRES_IN=7d
-
 FRONTEND_URL=http://localhost:4200
 ```
 
-Add any other environment variables required by the enabled OpenAI or Telegram integrations.
+Add any additional variables required by the enabled integrations.
 
-**Never publish real production secrets, API keys, database credentials, or bot tokens in a public repository.**
-
----
-
-## 4. Start the Backend
-
-Development mode:
+Start the backend:
 
 ```bash
 npm run dev
 ```
 
-Or normal mode:
+Or:
 
 ```bash
 npm start
 ```
 
-The local API runs on:
+Local backend:
 
 ```text
 http://localhost:3000
@@ -262,24 +231,22 @@ http://localhost:3000
 
 ---
 
-## 5. Install Frontend Dependencies
+## 3. Frontend Setup
 
-Open another terminal from the project root:
+Open a second terminal from the project root:
 
 ```bash
 cd frontend
 npm install
 ```
 
----
-
-## 6. Start the Frontend
+Start Angular:
 
 ```bash
 npm start
 ```
 
-The Angular development server will normally be available at:
+Local frontend:
 
 ```text
 http://localhost:4200
@@ -287,102 +254,91 @@ http://localhost:4200
 
 ---
 
-# 🔗 Main API Areas
+# 🔗 API Overview
 
-The backend is organized around the following API areas:
-
-| Area | Example Base Route | Purpose |
+| Area | Base Route | Description |
 |---|---|---|
-| Authentication | `/api/auth` | Registration, login, tokens, logout |
-| Products | `/api/products` | Product listing, details, search, comparison, management |
-| Cart | `/api/cart` | Shopping cart operations |
-| Orders | `/api/orders` | Customer orders and order details |
-| Admin | `/api/admin` | Dashboard, users, products, orders, reviews |
-| Reviews | `/api/reviews` / admin review routes | Product reviews and moderation |
+| Authentication | `/api/auth` | Registration, login, logout, tokens |
+| Products | `/api/products` | Products, search, details, comparison |
+| Cart | `/api/cart` | Cart operations |
+| Orders | `/api/orders` | Customer orders |
+| Admin | `/api/admin` | Products, users, orders, dashboard |
+| Reviews | `/api/reviews` | Product reviews and moderation |
 
-The exact endpoints should be checked against the current route files in `Backend/routes` when integrating external clients.
-
----
-
-# 🔐 Security
-
-ByteZone includes several backend security measures, including:
-
-- Password hashing with bcryptjs
-- JWT authentication
-- Refresh-token handling
-- Protected API routes
-- Admin authorization
-- HTTP-only cookies where applicable
-- Helmet security headers
-- CORS configuration
-- Rate limiting
-- Environment variables for sensitive configuration
+For exact endpoints, refer to the route files in `Backend/routes/`.
 
 ---
 
-# 🧪 Testing & Development
+# 🖼️ Product Images
 
-Recommended tools:
+ByteZone supports two types of product images:
 
-### Postman
+1. **Static product images** stored in the Angular frontend under `frontend/public/images/products`.
+2. **Uploaded product images** handled by the backend upload system under `/uploads`.
 
-Use Postman to test backend endpoints independently from the Angular frontend.
+Uploaded images use the Render backend in production and the local backend during local development, so the same source code can be used locally and in production.
 
-### MongoDB Compass
+---
 
-Useful for inspecting users, products, carts, orders, and other MongoDB collections during development.
+# 🧪 Build & Verification
 
-### Angular Build
-
-To verify the production frontend build:
+Build the Angular frontend:
 
 ```bash
 cd frontend
 npm run build
 ```
 
-The generated Angular production files are written under the `dist` directory.
-
----
-
-# 🌐 Deployment
-
-## Frontend
-
-The Angular frontend can be deployed to **Vercel** with the project root set to:
-
-```text
-frontend
-```
-
-For the current Angular production build, the generated browser output is under:
+The production output is generated under:
 
 ```text
 frontend/dist/frontend/browser
 ```
 
-## Backend
-
-The Node.js backend can be deployed separately to a Node-compatible hosting provider.
-
-Production environment variables should be configured through the hosting provider's environment-variable settings rather than committed to source control.
+For backend API testing, Postman is recommended.
 
 ---
 
-# 🖼️ Assets
+# 🌐 Deployment
 
-Most static storefront images are stored locally in the Angular frontend under `frontend/public` and are bundled with the frontend deployment.
+## Frontend — Vercel
 
-Backend-uploaded images are handled separately by the backend upload system.
+The frontend is deployed as an Angular application.
+
+Vercel project root:
+
+```text
+frontend
+```
+
+Production build:
+
+```bash
+npm run build
+```
+
+## Backend — Render
+
+The backend runs as a Node.js service on Render.
+
+Production environment variables should be configured through Render's Environment settings rather than hard-coded in the source code.
+
+---
+
+# 🔒 Security Notes
+
+- Never expose real database credentials, JWT secrets, API keys, or bot tokens in a public repository.
+- Use environment variables for sensitive configuration.
+- Do not commit production secrets.
+- Keep backend authentication and admin routes protected.
 
 ---
 
 # 📌 Project Status
 
-🚧 **Active development**
+**Active development** 🚧
 
-ByteZone is being developed as a full-stack e-commerce and portfolio project. The application includes the main shopping experience, authentication, cart and checkout flows, customer orders, reviews, and administration features.
+ByteZone is a full-stack hardware e-commerce project developed for educational, practical, and portfolio purposes.
 
 ---
 
@@ -391,10 +347,10 @@ ByteZone is being developed as a full-stack e-commerce and portfolio project. Th
 **Eslam Rafat**
 
 - GitHub: https://github.com/eslamrafat2
-- Project: https://github.com/eslamrafat2/ByteZone
+- Repository: https://github.com/eslamrafat2/ByteZone
 
 ---
 
 # 📄 License
 
-This project is created for **educational and portfolio purposes**.
+This project is intended for **educational and portfolio purposes**.
