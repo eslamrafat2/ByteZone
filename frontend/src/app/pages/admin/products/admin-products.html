@@ -49,6 +49,25 @@
           <label>Description</label
           ><textarea formControlName="description" placeholder="Product description"></textarea>
         </div>
+
+        <div class="form-group full" formArrayName="specifications">
+          <div style="display:flex;align-items:center;justify-content:space-between;gap:12px;margin-bottom:10px">
+            <div>
+              <label style="margin-bottom:4px">Specifications</label>
+              <small>Add the technical specifications shown on the product details page.</small>
+            </div>
+            <button class="btn" type="button" (click)="addSpecification()">+ Add Specification</button>
+          </div>
+
+          @for (spec of specifications.controls; track $index) {
+            <div [formGroupName]="$index" style="display:grid;grid-template-columns:1fr 1fr auto;gap:10px;margin-bottom:10px;align-items:center">
+              <input formControlName="name" placeholder="Specification name (e.g. RAM)" />
+              <input formControlName="value" placeholder="Value (e.g. 32 GB DDR5)" />
+              <button class="btn danger" type="button" (click)="removeSpecification($index)">Delete</button>
+            </div>
+          }
+        </div>
+
         <div class="actions">
           <button class="btn primary" type="submit" [disabled]="saving() === 'product'">
             {{ saving() === 'product' ? 'Saving...' : 'Save Product' }}</button
