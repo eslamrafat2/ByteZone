@@ -35,7 +35,8 @@
                     <th class="product-column-header">
                         <div class="compare-product-cell">
                             <div class="product-image-shell">
-                                <img [src]="product.image ? (product.image.startsWith('/uploads/') ? 'http://localhost:3000' + product.image : '/images/products/' + product.image) : ''"
+                                <img
+                                    [src]="product.image ? (product.image.startsWith('/uploads/') ? 'https://bytezone.onrender.com' + product.image : (product.image.startsWith('http://') || product.image.startsWith('https://') ? product.image : '/images/products/' + product.image)) : ''"
                                     [alt]="product.name" />
                             </div>
 
@@ -79,15 +80,13 @@
                 <tr [class.different-row]="isRowDifferent(products().map(product => product.brand))">
                     <th>Brand</th>
                     @for (product of products(); track product._id) {
-                    <td [class.different-cell]="isRowDifferent(products().map(item => item.brand))">{{ product.brand }}
-                    </td>
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.brand))">{{ product.brand }}</td>
                     }
                 </tr>
                 <tr [class.different-row]="isRowDifferent(products().map(product => product.category))">
                     <th>Category</th>
                     @for (product of products(); track product._id) {
-                    <td [class.different-cell]="isRowDifferent(products().map(item => item.category))">{{
-                        product.category }}</td>
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.category))">{{ product.category }}</td>
                     }
                 </tr>
                 <tr [class.different-row]="isRowDifferent(products().map(product => product.price))">
