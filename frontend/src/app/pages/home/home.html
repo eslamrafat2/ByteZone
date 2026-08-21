@@ -62,9 +62,7 @@
         <h2>Shop by Category</h2>
       </div>
       <div class="carousel-actions">
-        <button type="button" aria-label="Previous categories" (click)="previousCategory()">
-          ‹
-        </button>
+        <button type="button" aria-label="Previous categories" (click)="previousCategory()">‹</button>
         <button type="button" aria-label="Next categories" (click)="nextCategory()">›</button>
         <a routerLink="/products" class="view-all">View All <span>→</span></a>
       </div>
@@ -72,11 +70,7 @@
 
     <div class="category-grid">
       @for (category of visibleCategories(); track category.query) {
-        <a
-          routerLink="/products"
-          [queryParams]="{ category: category.query }"
-          class="category-card"
-        >
+        <a routerLink="/products" [queryParams]="{ category: category.query }" class="category-card">
           <div class="category-image">
             <img [src]="category.image" [alt]="category.name" loading="lazy" />
           </div>
@@ -94,29 +88,21 @@
 <!-- =========================
      FEATURED PRODUCTS
 ========================= -->
-
 <section class="featured section">
   <div class="container">
     <div class="section-heading">
       <div>
         <span class="section-label"> TOP PICKS </span>
-
         <h2>Featured Products</h2>
       </div>
-
-      <a routerLink="/products" class="view-all">
-        View All
-        <span>→</span>
-      </a>
+      <a routerLink="/products" class="view-all">View All <span>→</span></a>
     </div>
 
     <div class="product-grid">
       @if (featuredLoading()) {
         <div class="featured-state">Loading products...</div>
       } @else if (featuredError()) {
-        <div class="featured-state error">
-          {{ featuredError() }}
-        </div>
+        <div class="featured-state error">{{ featuredError() }}</div>
       } @else if (!featuredProducts().length) {
         <div class="featured-state">No featured products available.</div>
       } @else {
@@ -124,37 +110,15 @@
           <a class="product-card" [routerLink]="['/products', product._id]">
             <div class="product-image">
               <span class="product-badge"> Featured </span>
-
-              <img
-                [src]="
-                  product.image?.startsWith('/uploads/')
-                    ? 'http://localhost:3000' + product.image
-                    : product.image?.startsWith('http')
-                      ? product.image
-                      : '/images/products/' + product.image
-                "
-                [alt]="product.name"
-              />
+              <img [src]="imageUrl(product.image)" [alt]="product.name" />
             </div>
 
             <div class="product-info">
-              <span class="product-category">
-                {{ product.category }}
-              </span>
-
-              <h3>
-                {{ product.name }}
-              </h3>
-
-              <div class="product-brand">
-                {{ product.brand }}
-              </div>
-
+              <span class="product-category">{{ product.category }}</span>
+              <h3>{{ product.name }}</h3>
+              <div class="product-brand">{{ product.brand }}</div>
               <div class="product-bottom">
-                <strong class="price">
-                  {{ product.price | currency: 'USD' }}
-                </strong>
-
+                <strong class="price">{{ product.price | currency: 'USD' }}</strong>
                 @if (product.stock > 0) {
                   <span class="add-cart"> View Product </span>
                 } @else {
@@ -172,49 +136,19 @@
 <!-- =========================
      WHY BYTEZONE
 ========================= -->
-
 <section class="why-bytezone section">
   <div class="container">
     <div class="section-heading centered">
       <span class="section-label"> WHY BYTEZONE? </span>
-
       <h2>Everything You Need to Build Better</h2>
-
       <p>We make finding and buying PC hardware simple, reliable and convenient.</p>
     </div>
 
     <div class="features-grid">
-      <div class="feature-card">
-        <div class="feature-icon">✓</div>
-
-        <h3>Quality Products</h3>
-
-        <p>Carefully selected hardware from trusted brands and manufacturers.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">⚡</div>
-
-        <h3>Fast Delivery</h3>
-
-        <p>Get your components delivered quickly and safely to your doorstep.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">🔒</div>
-
-        <h3>Secure Shopping</h3>
-
-        <p>Your account and orders are protected with secure authentication.</p>
-      </div>
-
-      <div class="feature-card">
-        <div class="feature-icon">💻</div>
-
-        <h3>Build With Confidence</h3>
-
-        <p>Find the right components for gaming, work and everyday performance.</p>
-      </div>
+      <div class="feature-card"><div class="feature-icon">✓</div><h3>Quality Products</h3><p>Carefully selected hardware from trusted brands and manufacturers.</p></div>
+      <div class="feature-card"><div class="feature-icon">⚡</div><h3>Fast Delivery</h3><p>Get your components delivered quickly and safely to your doorstep.</p></div>
+      <div class="feature-card"><div class="feature-icon">🔒</div><h3>Secure Shopping</h3><p>Your account and orders are protected with secure authentication.</p></div>
+      <div class="feature-card"><div class="feature-icon">💻</div><h3>Build With Confidence</h3><p>Find the right components for gaming, work and everyday performance.</p></div>
     </div>
   </div>
 </section>
@@ -222,26 +156,18 @@
 <!-- =========================
      BRANDS
 ========================= -->
-
 <section class="brands section">
   <div class="container">
     <div class="section-heading centered">
       <span class="section-label"> TRUSTED BRANDS </span>
-
       <h2>Popular Brands</h2>
     </div>
-
     <div class="brand-grid">
       <div class="brand-card">Intel</div>
-
       <div class="brand-card">AMD</div>
-
       <div class="brand-card">NVIDIA</div>
-
       <div class="brand-card">ASUS</div>
-
       <div class="brand-card">MSI</div>
-
       <div class="brand-card">Corsair</div>
     </div>
   </div>
@@ -250,24 +176,16 @@
 <!-- =========================
      NEWSLETTER
 ========================= -->
-
 <section class="newsletter section">
   <div class="container">
     <div class="newsletter-card">
       <div class="newsletter-content">
         <span class="section-label"> STAY UPDATED </span>
-
         <h2>Get Hardware Deals & Updates</h2>
-
-        <p>
-          Subscribe to receive new product announcements, special offers and the latest hardware
-          deals.
-        </p>
+        <p>Subscribe to receive new product announcements, special offers and the latest hardware deals.</p>
       </div>
-
       <form class="newsletter-form">
         <input type="email" placeholder="Enter your email address" />
-
         <button type="submit">Subscribe</button>
       </form>
     </div>
