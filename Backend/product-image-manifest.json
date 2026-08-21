@@ -1,0 +1,404 @@
+[
+  {
+    "name": "Core Ultra 7 265K",
+    "image": "core-ultra-7-265k.jpg",
+    "category": "CPU",
+    "path": "/images/products/core-ultra-7-265k.jpg"
+  },
+  {
+    "name": "Core i5-14400F",
+    "image": "i5-14400f.jpg",
+    "category": "CPU",
+    "path": "/images/products/i5-14400f.jpg"
+  },
+  {
+    "name": "Core i5-14600K",
+    "image": "i514600k.jpg",
+    "category": "CPU",
+    "path": "/images/products/i514600k.jpg"
+  },
+  {
+    "name": "Core i5-14600KF",
+    "image": "i5-14600kf.jpg",
+    "category": "CPU",
+    "path": "/images/products/i5-14600kf.jpg"
+  },
+  {
+    "name": "Core i7-14700K",
+    "image": "i714700k.jpg",
+    "category": "CPU",
+    "path": "/images/products/i714700k.jpg"
+  },
+  {
+    "name": "Core i9-14900K",
+    "image": "i9-14900k.jpg",
+    "category": "CPU",
+    "path": "/images/products/i9-14900k.jpg"
+  },
+  {
+    "name": "Ryzen 5 7600",
+    "image": "ryzen57600.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen57600.jpg"
+  },
+  {
+    "name": "Ryzen 5 7600X",
+    "image": "ryzen57600x.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen57600x.jpg"
+  },
+  {
+    "name": "Ryzen 7 7700",
+    "image": "ryzen77700.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen77700.jpg"
+  },
+  {
+    "name": "Ryzen 7 7800X3D",
+    "image": "ryzen77800x3d.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen77800x3d.jpg"
+  },
+  {
+    "name": "Ryzen 9 7900X",
+    "image": "ryzen97900x.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen97900x.jpg"
+  },
+  {
+    "name": "Ryzen 9 7950X3D",
+    "image": "ryzen97950x3d.jpg",
+    "category": "CPU",
+    "path": "/images/products/ryzen97950x3d.jpg"
+  },
+  {
+    "name": "Corsair 4000D Airflow",
+    "image": "corsair-4000d-airflow.jpg",
+    "category": "Case",
+    "path": "/images/products/corsair-4000d-airflow.jpg"
+  },
+  {
+    "name": "Lian Li LANCOOL 216",
+    "image": "lian-li-lancool-216.jpg",
+    "category": "Case",
+    "path": "/images/products/lian-li-lancool-216.jpg"
+  },
+  {
+    "name": "NZXT H5 Flow",
+    "image": "nzxt-h5-flow.jpg",
+    "category": "Case",
+    "path": "/images/products/nzxt-h5-flow.jpg"
+  },
+  {
+    "name": "Arctic Liquid Freezer III 360",
+    "image": "arctic-liquid-freezer-iii-360.jpg",
+    "category": "Cooling",
+    "path": "/images/products/arctic-liquid-freezer-iii-360.jpg"
+  },
+  {
+    "name": "Cooler Master Hyper 212 Halo",
+    "image": "cooler-master-hyper-212-halo.jpg",
+    "category": "Cooling",
+    "path": "/images/products/cooler-master-hyper-212-halo.jpg"
+  },
+  {
+    "name": "DeepCool AK400",
+    "image": "deepcool-ak400.jpg",
+    "category": "Cooling",
+    "path": "/images/products/deepcool-ak400.jpg"
+  },
+  {
+    "name": "DeepCool AK620",
+    "image": "deepcool-ak620.jpg",
+    "category": "Cooling",
+    "path": "/images/products/deepcool-ak620.jpg"
+  },
+  {
+    "name": "NZXT Kraken 360 RGB",
+    "image": "nzxt-kraken-360-rgb.jpg",
+    "category": "Cooling",
+    "path": "/images/products/nzxt-kraken-360-rgb.jpg"
+  },
+  {
+    "name": "RTX 3060 12GB",
+    "image": "rtx3060-12gb.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx3060-12gb.jpg"
+  },
+  {
+    "name": "RTX 4060",
+    "image": "rtx4060.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4060.jpg"
+  },
+  {
+    "name": "RTX 4060 Ti",
+    "image": "rtx4060ti.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4060ti.jpg"
+  },
+  {
+    "name": "RTX 4060 Ti 16GB",
+    "image": "rtx4060ti-16gb.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4060ti-16gb.jpg"
+  },
+  {
+    "name": "RTX 4070",
+    "image": "rtx4070.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4070.jpg"
+  },
+  {
+    "name": "RTX 4070 SUPER",
+    "image": "rtx4070-super.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4070-super.jpg"
+  },
+  {
+    "name": "RTX 4070 Ti SUPER",
+    "image": "rtx4070-ti-super.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4070-ti-super.jpg"
+  },
+  {
+    "name": "RTX 4080 SUPER",
+    "image": "rtx4080super.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4080super.jpg"
+  },
+  {
+    "name": "RTX 4090",
+    "image": "rtx4090.jpg",
+    "category": "GPU",
+    "path": "/images/products/rtx4090.jpg"
+  },
+  {
+    "name": "RX 7600",
+    "image": "rx7600.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7600.jpg"
+  },
+  {
+    "name": "RX 7700 XT",
+    "image": "rx7700xt.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7700xt.jpg"
+  },
+  {
+    "name": "RX 7800 XT",
+    "image": "rx7800xt.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7800xt.jpg"
+  },
+  {
+    "name": "RX 7900 GRE",
+    "image": "rx7900gre.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7900gre.jpg"
+  },
+  {
+    "name": "RX 7900 XT",
+    "image": "rx7900xt.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7900xt.jpg"
+  },
+  {
+    "name": "RX 7900 XTX",
+    "image": "rx7900xtx.jpg",
+    "category": "GPU",
+    "path": "/images/products/rx7900xtx.jpg"
+  },
+  {
+    "name": "Logitech G Pro X TKL",
+    "image": "logitech-g-pro-x-tkl.jpg",
+    "category": "Keyboard",
+    "path": "/images/products/logitech-g-pro-x-tkl.jpg"
+  },
+  {
+    "name": "AOC CQ32G2S",
+    "image": "aoc-cq32g2s.jpg",
+    "category": "Monitor",
+    "path": "/images/products/aoc-cq32g2s.jpg"
+  },
+  {
+    "name": "LG UltraGear 27GP850-B",
+    "image": "lg-ultragear-27gp850-b.jpg",
+    "category": "Monitor",
+    "path": "/images/products/lg-ultragear-27gp850-b.jpg"
+  },
+  {
+    "name": "ASRock B650M Pro RS",
+    "image": "asrock-b650m-pro-rs.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/asrock-b650m-pro-rs.jpg"
+  },
+  {
+    "name": "ASUS ROG STRIX Z790-E Gaming WiFi II",
+    "image": "asus-rog-z790-e-wifi-ii.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/asus-rog-z790-e-wifi-ii.jpg"
+  },
+  {
+    "name": "ASUS TUF Gaming B650-PLUS",
+    "image": "asus-tuf-b650-plus.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/asus-tuf-b650-plus.jpg"
+  },
+  {
+    "name": "ASUS TUF Gaming B760-PLUS",
+    "image": "asus-b760-plus.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/asus-b760-plus.jpg"
+  },
+  {
+    "name": "Gigabyte B650 AORUS Elite AX",
+    "image": "gigabyte-b650-aorus-elite-ax.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/gigabyte-b650-aorus-elite-ax.jpg"
+  },
+  {
+    "name": "MSI B650 Gaming Plus",
+    "image": "msi-b650-gaming-plus.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/msi-b650-gaming-plus.jpg"
+  },
+  {
+    "name": "MSI MAG B650 Tomahawk WiFi",
+    "image": "msi-b650-tomahawk-wifi.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/msi-b650-tomahawk-wifi.jpg"
+  },
+  {
+    "name": "MSI PRO Z790-A MAX WiFi",
+    "image": "msi-z790-a-max-wifi.jpg",
+    "category": "Motherboard",
+    "path": "/images/products/msi-z790-a-max-wifi.jpg"
+  },
+  {
+    "name": "Corsair RM750e",
+    "image": "corsair-rm750e.jpg",
+    "category": "PSU",
+    "path": "/images/products/corsair-rm750e.jpg"
+  },
+  {
+    "name": "Corsair RM850e",
+    "image": "corsair-rm850e.jpg",
+    "category": "PSU",
+    "path": "/images/products/corsair-rm850e.jpg"
+  },
+  {
+    "name": "MSI MAG A650BN",
+    "image": "msi-mag-a650bn.jpg",
+    "category": "PSU",
+    "path": "/images/products/msi-mag-a650bn.jpg"
+  },
+  {
+    "name": "Seasonic Focus GX-1000",
+    "image": "seasonic-focus-gx-1000.jpg",
+    "category": "PSU",
+    "path": "/images/products/seasonic-focus-gx-1000.jpg"
+  },
+  {
+    "name": "be quiet! Pure Power 12 M 850W",
+    "image": "bequiet-pure-power-12m-850w.jpg",
+    "category": "PSU",
+    "path": "/images/products/bequiet-pure-power-12m-850w.jpg"
+  },
+  {
+    "name": "Corsair Dominator Titanium 64GB",
+    "image": "corsair-dominator-titanium-64gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/corsair-dominator-titanium-64gb.jpg"
+  },
+  {
+    "name": "Corsair Vengeance 16GB",
+    "image": "corsair-vengeance-16gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/corsair-vengeance-16gb.jpg"
+  },
+  {
+    "name": "Corsair Vengeance 32GB",
+    "image": "corsair-vengeance-32gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/corsair-vengeance-32gb.jpg"
+  },
+  {
+    "name": "Crucial Pro 32GB",
+    "image": "crucial-pro-32gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/crucial-pro-32gb.jpg"
+  },
+  {
+    "name": "G.Skill Ripjaws S5 32GB",
+    "image": "gskill-ripjaws-s5-32gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/gskill-ripjaws-s5-32gb.jpg"
+  },
+  {
+    "name": "G.Skill Trident Z5 RGB 32GB",
+    "image": "gskill-trident-z5-rgb-32gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/gskill-trident-z5-rgb-32gb.jpg"
+  },
+  {
+    "name": "Kingston Fury 32GB",
+    "image": "kingston-fury-32gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/kingston-fury-32gb.jpg"
+  },
+  {
+    "name": "Kingston Fury Beast 16GB",
+    "image": "kingston-fury-beast-16gb.jpg",
+    "category": "RAM",
+    "path": "/images/products/kingston-fury-beast-16gb.jpg"
+  },
+  {
+    "name": "Crucial MX500 1TB",
+    "image": "crucial-mx500-1tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/crucial-mx500-1tb.jpg"
+  },
+  {
+    "name": "Crucial T500 2TB",
+    "image": "crucial-t500-2tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/crucial-t500-2tb.jpg"
+  },
+  {
+    "name": "Kingston KC3000 1TB",
+    "image": "kingston-kc3000-1tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/kingston-kc3000-1tb.jpg"
+  },
+  {
+    "name": "Samsung 990 Pro 1TB",
+    "image": "samsung990pro1tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/samsung990pro1tb.jpg"
+  },
+  {
+    "name": "Samsung 990 Pro 2TB",
+    "image": "samsung990pro-2tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/samsung990pro-2tb.jpg"
+  },
+  {
+    "name": "Seagate FireCuda 530 2TB",
+    "image": "seagate-firecuda-530-2tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/seagate-firecuda-530-2tb.jpg"
+  },
+  {
+    "name": "WD Black SN850X 1TB",
+    "image": "wd-sn850x-1tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/wd-sn850x-1tb.jpg"
+  },
+  {
+    "name": "WD Black SN850X 2TB",
+    "image": "wdsn850x2tb.jpg",
+    "category": "Storage",
+    "path": "/images/products/wdsn850x2tb.jpg"
+  }
+]

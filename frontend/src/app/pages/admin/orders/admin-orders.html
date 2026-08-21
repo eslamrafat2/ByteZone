@@ -1,0 +1,237 @@
+<main class="admin-page">
+  <header class="admin-heading">
+    <div>
+      <span class="eyebrow">SALES</span>
+
+      <h1>Orders</h1>
+
+      <p>
+        Review customer details, products and delivery information.
+      </p>
+    </div>
+
+    <button
+      type="button"
+      class="btn"
+      (click)="load()"
+    >
+      Refresh
+    </button>
+  </header>
+
+  @if (error()) {
+    <div class="state error">
+      {{ error() }}
+    </div>
+  }
+
+  @if (loading()) {
+    <div class="state">
+      Loading orders...
+    </div>
+  } @else {
+    <div>
+      @for (o of orders(); track o._id) {
+        <article class="order-card">
+
+          <!-- Order Summary -->
+          <div class="order-summary">
+
+            <div>
+              <button
+                type="button"
+                (click)="toggle(o._id)"
+              >
+                {{ expanded() === o._id ? '−' : '+' }}
+              </button>
+
+              <div class="meta">
+                <span>
+                  #{{ o._id.slice(-8).toUpperCase() }}
+                  ·
+                  {{
+                    typeof o.user === 'object'
+                      ? o.user?.name
+                      : 'Customer'
+                  }}
+                </span>
+
+                <small>
+                  {{ o.createdAt | date: 'medium' }}
+                </small>
+              </div>
+            </div>
+
+            <div>
+              <strong>
+                {{ o.total | currency: 'USD' }}
+              </strong>
+
+              <select
+                [value]="o.status"
+                (change)="update(o, $any($event.target).value)"
+                [disabled]="saving() === o._id"
+              >
+                @for (s of statuses; track s) {
+                  <option
+                    [value]="s"
+                    [selected]="s === o.status"
+                  >
+                    {{ s }}
+                  </option>
+                }
+              </select>
+            </div>
+
+          </div>
+
+          <!-- Order Details -->
+          @if (expanded() === o._id) {
+            <div class="order-detail">
+
+              <div class="detail-grid">
+
+                <!-- Customer & Delivery -->
+                <div class="detail-block">
+                  <h3>Customer & Delivery</h3>
+
+                  <div class="detail-info">
+
+                    <div>
+                      <span>Account</span>
+
+                      <strong>
+                        {{
+                          typeof o.user === 'object'
+                            ? o.user?.name
+                            : 'Customer'
+                        }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Email</span>
+
+                      <strong>
+                        {{
+                          typeof o.user === 'object'
+                            ? o.user?.email
+                            : '—'
+                        }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Full name</span>
+
+                      <strong>
+                        {{ o.customer?.fullName }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Phone</span>
+
+                      <strong>
+                        {{ o.customer?.phone }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Address</span>
+
+                      <strong>
+                        {{ o.customer?.address }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>City</span>
+
+                      <strong>
+                        {{ o.customer?.city }}
+                      </strong>
+                    </div>
+
+                  </div>
+                </div>
+
+                <!-- Ordered Products -->
+                <div class="detail-block">
+                  <h3>Ordered Products</h3>
+
+                  @for (item of o.items; track $index) {
+                    <div class="ordered-product">
+
+                      <div>
+                        <strong>
+                          {{ item.name }}
+                        </strong>
+
+                        <span>
+                          {{ item.quantity }}
+                          ×
+                          {{ item.price | currency: 'USD' }}
+                        </span>
+                      </div>
+
+                      <strong>
+                        {{
+                          item.price * item.quantity
+                            | currency: 'USD'
+                        }}
+                      </strong>
+
+                    </div>
+                  }
+
+                  <!-- Order Totals -->
+                  <div class="totals">
+
+                    <div>
+                      <span>Subtotal</span>
+
+                      <strong>
+                        {{ o.subtotal | currency: 'USD' }}
+                      </strong>
+                    </div>
+
+                    <div>
+                      <span>Shipping</span>
+
+                      <strong>
+                        {{ o.shipping | currency: 'USD' }}
+                      </strong>
+                    </div>
+
+                    <div class="grand">
+                      <span>Total</span>
+
+                      <strong>
+                        {{ o.total | currency: 'USD' }}
+                      </strong>
+                    </div>
+
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Order Note -->
+              @if (o.customer?.notes) {
+                <div
+                  class="state"
+                  style="margin-top: 15px"
+                >
+                  Note: {{ o.customer.notes }}
+                </div>
+              }
+
+            </div>
+          }
+
+        </article>
+      }
+    </div>
+  }
+</main>

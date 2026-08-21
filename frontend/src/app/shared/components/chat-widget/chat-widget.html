@@ -1,0 +1,182 @@
+@if (isOpen()) {
+
+  <div class="chat-window">
+
+    <!-- Header -->
+    <div class="chat-header">
+
+      <div class="chat-title">
+        <strong>ByteZone Assistant</strong>
+
+        <span class="online-status">
+          <span class="online-dot"></span>
+          Online
+        </span>
+      </div>
+
+      <button
+        type="button"
+        class="close-button"
+        (click)="toggleChat()">
+
+        ×
+
+      </button>
+
+    </div>
+
+
+    <!-- Messages -->
+    <div class="chat-messages">
+
+      @for (message of messages(); track $index) {
+
+        <div
+          class="message-row"
+          [class.user-row]="message.sender === 'user'"
+          [class.bot-row]="message.sender === 'bot'">
+
+          <div
+            class="message"
+            [class.user-message]="message.sender === 'user'"
+            [class.bot-message]="message.sender === 'bot'">
+
+            {{ message.text }}
+
+          </div>
+
+        </div>
+
+
+        <!-- Products -->
+        @if (message.products?.length) {
+
+          <div class="product-results">
+
+            @for (
+              product of message.products;
+              track product._id
+            ) {
+
+              <div class="product-card">
+
+                <div class="product-info">
+
+                  <strong class="product-name">
+                    {{ product.name }}
+                  </strong>
+
+                  <span class="product-brand">
+                    {{ product.brand }}
+                  </span>
+
+                  <b class="product-price">
+                    ${{ product.price }}
+                  </b>
+
+                  <small class="product-stock">
+
+                    @if (product.stock > 0) {
+
+                      {{ product.stock }} available
+
+                    } @else {
+
+                      Out of stock
+
+                    }
+
+                  </small>
+
+                </div>
+
+
+                <!-- Product Actions -->
+                <div class="product-actions">
+
+                  <!-- View Product -->
+                  <a
+                    [href]="'/products/' + product._id"
+                    class="view-product">
+
+                    👁 View Product
+
+                  </a>
+
+
+                  <!-- Add To Cart -->
+                  @if (product.stock > 0) {
+
+                    <button
+                      type="button"
+                      class="add-cart-button"
+                      (click)="addToCart(product)">
+
+                      🛒 Add to Cart
+
+                    </button>
+
+                  }
+
+                </div>
+
+              </div>
+
+            }
+
+          </div>
+
+        }
+
+      }
+
+
+      <!-- Loading -->
+      @if (isLoading()) {
+
+        <div class="typing">
+          🤖 بيدور على المنتجات...
+        </div>
+
+      }
+
+    </div>
+
+
+    <!-- Input -->
+    <form
+      class="chat-input"
+      (ngSubmit)="sendMessage()">
+
+      <input
+        name="message"
+        [ngModel]="input()"
+        (ngModelChange)="input.set($event)"
+        placeholder="Ask about products..."
+        autocomplete="off"
+      />
+
+      <button
+        type="submit"
+        [disabled]="isLoading() || !input().trim()">
+
+        ➤
+
+      </button>
+
+    </form>
+
+  </div>
+
+}
+
+
+<!-- Chat Button -->
+<button
+  class="chat-button"
+  type="button"
+  (click)="toggleChat()">
+
+  💬
+
+</button>

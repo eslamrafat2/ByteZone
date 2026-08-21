@@ -1,0 +1,35 @@
+<main class="admin-shell-page">
+  <aside class="admin-sidebar">
+    <a routerLink="/" class="admin-brand"
+      ><img src="/images/logo1.png" alt="ByteZone" /><span>ByteZone <small>Admin</small></span></a
+    >
+    <nav>
+      <a routerLink="/admin" [routerLinkActiveOptions]="{ exact: true }" routerLinkActive="active"
+        ><span>⌂</span> Overview</a
+      >
+      <a routerLink="/admin/products" routerLinkActive="active"><span>▦</span> Products</a>
+      <a routerLink="/admin/orders" routerLinkActive="active"><span>▣</span> Orders</a>
+      <a routerLink="/admin/users" routerLinkActive="active"><span>♙</span> Users</a>
+      <a routerLink="/admin/reviews" routerLinkActive="active"><span>★</span> Reviews</a>
+    </nav>
+    <div class="admin-side-footer">
+      <div class="admin-user">
+        <span>{{ user()?.name?.charAt(0)?.toUpperCase() }}</span>
+        <div>
+          <strong>{{ user()?.name }}</strong
+          ><small>Administrator</small>
+        </div>
+      </div>
+      <a routerLink="/profile">Account settings →</a>
+    </div>
+  </aside>
+  <section class="admin-main">
+    <header class="admin-mobile-header">
+      <a routerLink="/" class="admin-brand"
+        ><img src="/images/logo1.png" alt="ByteZone" /><strong>ByteZone Admin</strong></a
+      >
+      <a routerLink="/profile">Profile</a>
+    </header>
+    <router-outlet></router-outlet>
+  </section>
+</main>

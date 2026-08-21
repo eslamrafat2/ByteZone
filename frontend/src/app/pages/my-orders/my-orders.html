@@ -1,0 +1,48 @@
+<main class="orders-page">
+  <section class="orders-shell">
+    <header class="orders-heading">
+      <div><span class="eyebrow">ACCOUNT</span><h1>My Orders</h1><p>Track your purchases and review every order detail.</p></div>
+      <a routerLink="/products" class="shop-link">Continue Shopping →</a>
+    </header>
+
+    @if (loading()) {
+      <div class="state-card">Loading your orders...</div>
+    } @else if (error()) {
+      <div class="state-card error">{{ error() }}</div>
+    } @else if (!orders().length) {
+      <div class="empty-card"><div class="empty-icon">▣</div><h2>No orders yet</h2><p>Your purchases will appear here once you place an order.</p><a routerLink="/products">Browse Products</a></div>
+    } @else {
+      <div class="orders-list">
+        @for (order of orders(); track order._id) {
+          <article class="order-card">
+            <header class="order-header">
+              <div><span class="order-id">ORDER #{{ order._id.slice(-8).toUpperCase() }}</span><small>{{ order.createdAt | date:'medium' }}</small></div>
+              <span class="status" [class]="'status ' + order.status">{{ order.status }}</span>
+            </header>
+
+            <div class="order-items">
+              @for (item of order.items; track $index) {
+                <div class="order-item">
+                  <div class="item-thumb">PC</div>
+                  <div class="item-info"><strong>{{ item.name }}</strong><span>{{ item.quantity }} × {{ item.price | currency:'USD' }}</span></div>
+                  <strong class="item-total">{{ item.price * item.quantity | currency:'USD' }}</strong>
+                </div>
+              }
+            </div>
+
+            <div class="order-meta">
+              <div><span>Delivery to</span><strong>{{ order.customer?.fullName || 'Customer' }}</strong><p>{{ order.customer?.address }}, {{ order.customer?.city }}</p><small>{{ order.customer?.phone }}</small></div>
+              <div class="price-summary">
+                <div><span>Subtotal</span><strong>{{ order.subtotal | currency:'USD' }}</strong></div>
+                <div><span>Shipping</span><strong>{{ order.shipping | currency:'USD' }}</strong></div>
+                <div class="grand"><span>Total</span><strong>{{ order.total | currency:'USD' }}</strong></div>
+              </div>
+            </div>
+
+            @if (order.customer?.notes) { <div class="order-note"><strong>Order note:</strong> {{ order.customer.notes }}</div> }
+          </article>
+        }
+      </div>
+    }
+  </section>
+</main>

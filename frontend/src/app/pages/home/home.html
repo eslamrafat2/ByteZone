@@ -1,0 +1,275 @@
+<!-- =========================
+     HERO
+========================= -->
+<section class="hero">
+  @for (slide of slides; track slide.image; let i = $index) {
+    <div
+      class="hero-slide"
+      [class.active]="activeSlide() === i"
+      [style.background-image]="'url(' + slide.image + ')'"
+    ></div>
+  }
+  <div class="hero-overlay"></div>
+
+  <div class="container hero-container">
+    <div class="hero-content">
+      <span class="hero-badge">{{ slides[activeSlide()].badge }}</span>
+
+      <h1>
+        {{ slides[activeSlide()].title }}
+        <span class="typing-word">{{ typedText() }}<i [class.hidden]="!isTyping()">|</i></span>
+      </h1>
+
+      <p>{{ slides[activeSlide()].description }}</p>
+
+      <div class="hero-actions">
+        <a routerLink="/products" class="primary-btn">Shop Hardware <span>→</span></a>
+        <a routerLink="/budget-finder" class="secondary-btn">Find Your Build</a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat"><strong>500+</strong><span>Products</span></div>
+        <div class="stat"><strong>50+</strong><span>Brands</span></div>
+        <div class="stat"><strong>100%</strong><span>Secure</span></div>
+      </div>
+    </div>
+  </div>
+
+  <div class="hero-controls" aria-label="Hero slider controls">
+    <button type="button" aria-label="Previous slide" (click)="previousSlide()">‹</button>
+    <div class="hero-dots">
+      @for (slide of slides; track slide.image; let i = $index) {
+        <button
+          type="button"
+          [class.active]="activeSlide() === i"
+          [attr.aria-label]="'Go to slide ' + (i + 1)"
+          (click)="goToSlide(i)"
+        ></button>
+      }
+    </div>
+    <button type="button" aria-label="Next slide" (click)="nextSlide()">›</button>
+  </div>
+</section>
+
+<!-- =========================
+     CATEGORIES
+========================= -->
+<section class="categories section">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <span class="section-label">EXPLORE HARDWARE</span>
+        <h2>Shop by Category</h2>
+      </div>
+      <div class="carousel-actions">
+        <button type="button" aria-label="Previous categories" (click)="previousCategory()">
+          ‹
+        </button>
+        <button type="button" aria-label="Next categories" (click)="nextCategory()">›</button>
+        <a routerLink="/products" class="view-all">View All <span>→</span></a>
+      </div>
+    </div>
+
+    <div class="category-grid">
+      @for (category of visibleCategories(); track category.query) {
+        <a
+          routerLink="/products"
+          [queryParams]="{ category: category.query }"
+          class="category-card"
+        >
+          <div class="category-image">
+            <img [src]="category.image" [alt]="category.name" loading="lazy" />
+          </div>
+          <div class="category-content">
+            <h3>{{ category.name }}</h3>
+            <p>{{ category.description }}</p>
+            <span class="category-link">Explore →</span>
+          </div>
+        </a>
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     FEATURED PRODUCTS
+========================= -->
+
+<section class="featured section">
+  <div class="container">
+    <div class="section-heading">
+      <div>
+        <span class="section-label"> TOP PICKS </span>
+
+        <h2>Featured Products</h2>
+      </div>
+
+      <a routerLink="/products" class="view-all">
+        View All
+        <span>→</span>
+      </a>
+    </div>
+
+    <div class="product-grid">
+      @if (featuredLoading()) {
+        <div class="featured-state">Loading products...</div>
+      } @else if (featuredError()) {
+        <div class="featured-state error">
+          {{ featuredError() }}
+        </div>
+      } @else if (!featuredProducts().length) {
+        <div class="featured-state">No featured products available.</div>
+      } @else {
+        @for (product of featuredProducts(); track product._id) {
+          <a class="product-card" [routerLink]="['/products', product._id]">
+            <div class="product-image">
+              <span class="product-badge"> Featured </span>
+
+              <img
+                [src]="
+                  product.image?.startsWith('/uploads/')
+                    ? 'http://localhost:3000' + product.image
+                    : product.image?.startsWith('http')
+                      ? product.image
+                      : '/images/products/' + product.image
+                "
+                [alt]="product.name"
+              />
+            </div>
+
+            <div class="product-info">
+              <span class="product-category">
+                {{ product.category }}
+              </span>
+
+              <h3>
+                {{ product.name }}
+              </h3>
+
+              <div class="product-brand">
+                {{ product.brand }}
+              </div>
+
+              <div class="product-bottom">
+                <strong class="price">
+                  {{ product.price | currency: 'USD' }}
+                </strong>
+
+                @if (product.stock > 0) {
+                  <span class="add-cart"> View Product </span>
+                } @else {
+                  <span class="out-of-stock"> Out of Stock </span>
+                }
+              </div>
+            </div>
+          </a>
+        }
+      }
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     WHY BYTEZONE
+========================= -->
+
+<section class="why-bytezone section">
+  <div class="container">
+    <div class="section-heading centered">
+      <span class="section-label"> WHY BYTEZONE? </span>
+
+      <h2>Everything You Need to Build Better</h2>
+
+      <p>We make finding and buying PC hardware simple, reliable and convenient.</p>
+    </div>
+
+    <div class="features-grid">
+      <div class="feature-card">
+        <div class="feature-icon">✓</div>
+
+        <h3>Quality Products</h3>
+
+        <p>Carefully selected hardware from trusted brands and manufacturers.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">⚡</div>
+
+        <h3>Fast Delivery</h3>
+
+        <p>Get your components delivered quickly and safely to your doorstep.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">🔒</div>
+
+        <h3>Secure Shopping</h3>
+
+        <p>Your account and orders are protected with secure authentication.</p>
+      </div>
+
+      <div class="feature-card">
+        <div class="feature-icon">💻</div>
+
+        <h3>Build With Confidence</h3>
+
+        <p>Find the right components for gaming, work and everyday performance.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     BRANDS
+========================= -->
+
+<section class="brands section">
+  <div class="container">
+    <div class="section-heading centered">
+      <span class="section-label"> TRUSTED BRANDS </span>
+
+      <h2>Popular Brands</h2>
+    </div>
+
+    <div class="brand-grid">
+      <div class="brand-card">Intel</div>
+
+      <div class="brand-card">AMD</div>
+
+      <div class="brand-card">NVIDIA</div>
+
+      <div class="brand-card">ASUS</div>
+
+      <div class="brand-card">MSI</div>
+
+      <div class="brand-card">Corsair</div>
+    </div>
+  </div>
+</section>
+
+<!-- =========================
+     NEWSLETTER
+========================= -->
+
+<section class="newsletter section">
+  <div class="container">
+    <div class="newsletter-card">
+      <div class="newsletter-content">
+        <span class="section-label"> STAY UPDATED </span>
+
+        <h2>Get Hardware Deals & Updates</h2>
+
+        <p>
+          Subscribe to receive new product announcements, special offers and the latest hardware
+          deals.
+        </p>
+      </div>
+
+      <form class="newsletter-form">
+        <input type="email" placeholder="Enter your email address" />
+
+        <button type="submit">Subscribe</button>
+      </form>
+    </div>
+  </div>
+</section>

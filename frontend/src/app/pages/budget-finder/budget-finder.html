@@ -1,0 +1,56 @@
+<main class="budget-page">
+  <section class="budget-shell">
+    <div class="heading">
+      <p class="eyebrow">Smart shopping</p>
+      <h1>Find Products By Budget</h1>
+      <p>
+        Tell us how much you want to spend and we’ll show available hardware within your budget.
+      </p>
+    </div>
+    <form class="finder" (submit)="$event.preventDefault(); findProducts()">
+      <label for="budget">Your Budget</label
+      ><input
+        id="budget"
+        type="number"
+        min="1"
+        [value]="budget() ?? ''"
+        (input)="budget.set(+$any($event.target).value)"
+        placeholder="Example: 1000"
+      /><label for="category">Category</label
+      ><select
+        id="category"
+        [value]="category()"
+        (change)="category.set($any($event.target).value)"
+      >
+        <option value="">All Categories</option>
+        @for (c of categories(); track c) {
+          <option [value]="c">{{ c }}</option>
+        }</select
+      ><button type="submit" [disabled]="loading()">
+        {{ loading() ? 'Finding...' : 'Find Products' }}
+      </button>
+    </form>
+    @if (error()) {
+      <div class="error">{{ error() }}</div>
+    }
+    @if (searched() && !loading() && !products().length && !error()) {
+      <div class="empty">
+        <h2>No matching products</h2>
+        <p>Try increasing your budget or selecting another category.</p>
+      </div>
+    }
+    @if (products().length) {
+      <div class="results">
+        <div class="results-heading">
+          <h2>Suggested Products</h2>
+          <span>{{ products().length }} result(s)</span>
+        </div>
+        <div class="product-grid">
+          @for (product of products(); track product._id) {
+            <app-product-card [product]="product" />
+          }
+        </div>
+      </div>
+    }
+  </section>
+</main>

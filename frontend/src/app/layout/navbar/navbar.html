@@ -1,0 +1,117 @@
+<header class="site-header">
+  <div class="navbar-container">
+    <a class="brand" routerLink="/" (click)="closeMenu()">
+      <img src="/images/logo1.png" alt="ByteZone Logo" class="brand-logo" />
+      <span class="brand-name">ByteZone</span>
+    </a>
+
+    <div class="search-box">
+      <svg class="search-icon" viewBox="0 0 24 24" aria-hidden="true">
+        <circle cx="11" cy="11" r="7"></circle>
+        <path d="M20 20L16 16"></path>
+      </svg>
+      <input
+        type="search"
+        placeholder="Search hardware..."
+        [value]="searchValue"
+        (input)="onSearchInput($any($event.target).value)"
+        (keydown)="onSearchKeydown($event)"
+      />
+    </div>
+
+    <button
+      class="menu-toggle"
+      type="button"
+      aria-label="Toggle navigation"
+      [attr.aria-expanded]="menuOpen"
+      (click)="toggleMenu()"
+    >
+      <span></span>
+      <span></span>
+      <span></span>
+    </button>
+
+    <nav class="main-nav" [class.open]="menuOpen">
+      <a routerLink="/" routerLinkActive="active" [routerLinkActiveOptions]="{ exact: true }" (click)="closeMenu()">Home</a>
+      <a routerLink="/products" routerLinkActive="active" (click)="closeMenu()">Products</a>
+      <a routerLink="/compare" routerLinkActive="active" (click)="closeMenu()">Compare</a>
+      <a routerLink="/budget-finder" routerLinkActive="active" (click)="closeMenu()">Budget Finder</a>
+    </nav>
+
+    <div class="nav-actions">
+      @if (isAuthenticated()) {
+        <div class="profile-menu">
+          <button
+            class="profile-trigger"
+            type="button"
+            aria-label="Open account menu"
+            [attr.aria-expanded]="profileMenuOpen"
+            (click)="toggleProfileMenu()"
+          >
+            <span class="profile-avatar">{{ userName().charAt(0).toUpperCase() }}</span>
+            <span class="profile-trigger-name">{{ userName() }}</span>
+            <span class="profile-chevron">⌄</span>
+          </button>
+
+          @if (profileMenuOpen) {
+            <div class="profile-dropdown">
+              <div class="profile-summary">
+                <span class="profile-avatar large">{{ userName().charAt(0).toUpperCase() }}</span>
+                <div>
+                  <strong>{{ userName() }}</strong>
+                  <small>{{ currentUser()?.email }}</small>
+                </div>
+              </div>
+
+              <div class="profile-divider"></div>
+
+              <a routerLink="/profile" (click)="closeMenu()">
+                <span class="menu-icon">◉</span>
+                Profile
+              </a>
+              <a routerLink="/my-orders" (click)="closeMenu()">
+                <span class="menu-icon">▣</span>
+                My Orders
+              </a>
+
+              @if (isAdmin()) {
+                <a class="admin-link" routerLink="/admin" (click)="closeMenu()">
+                  <span class="menu-icon">◆</span>
+                  Admin Dashboard
+                </a>
+              }
+
+              <div class="profile-divider"></div>
+
+              <button class="dropdown-logout" type="button" (click)="logout()">
+                <span class="menu-icon">↪</span>
+                Logout
+              </button>
+            </div>
+          }
+        </div>
+      } @else {
+        <a class="login-btn" routerLink="/login" routerLinkActive="active" (click)="closeMenu()">
+          <svg viewBox="0 0 24 24" aria-hidden="true">
+            <circle cx="12" cy="8" r="4"></circle>
+            <path d="M4 21c0-4 3.5-7 8-7s8 3 8 7"></path>
+          </svg>
+          <span>Login</span>
+        </a>
+
+        <a class="register-btn" routerLink="/register" routerLinkActive="active" (click)="closeMenu()">
+          <span>Register</span>
+        </a>
+      }
+
+      <a class="cart-btn" routerLink="/cart" (click)="closeMenu()">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M3 4h2l2.5 11h10L21 7H6"></path>
+          <circle cx="9" cy="20" r="1"></circle>
+          <circle cx="18" cy="20" r="1"></circle>
+        </svg>
+        <span>Cart{{ cartService.itemCount() ? ' (' + cartService.itemCount() + ')' : '' }}</span>
+      </a>
+    </div>
+  </div>
+</header>

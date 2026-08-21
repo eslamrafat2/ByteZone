@@ -1,0 +1,108 @@
+<main class="products-page">
+  <section class="products-hero" aria-labelledby="products-title">
+    <p class="eyebrow">ByteZone hardware catalog</p>
+    <h1 id="products-title">Performance hardware, chosen for your setup</h1>
+    <p class="hero-description">Shop dependable PC components and peripherals for every build.</p>
+  </section>
+
+  @if (errorMessage()) {
+  <div class="page-state page-state-error" role="alert">{{ errorMessage() }}</div>
+  } @else {
+  <section class="products-catalog" aria-label="Products catalog" [class.catalog-loading]="loading()">
+    <div class="products-toolbar" aria-label="Product filters">
+      <div class="toolbar-summary">
+        <p class="product-count">
+          <strong>{{ total() }}</strong>
+          {{ total() === 1 ? 'product' : 'products' }}
+          @if (total() > products().length) { <span>· Showing {{ products().length }}</span> }
+        </p>
+        <button class="clear-filters" type="button" [disabled]="!hasActiveFilters()" (click)="clearFilters()">
+          Clear filters
+        </button>
+      </div>
+
+      <div class="toolbar-controls">
+        <label class="select-control">  
+          <span class="visually-hidden">Filter by category</span>
+          <select aria-label="Filter by category" [value]="selectedCategory()"
+            (change)="setCategory($any($event.target).value)">
+            <option value="">All Categories</option>
+            @for (category of categories(); track category) { <option [value]="category">{{ category }}</option> }
+          </select>
+        </label>
+        <label class="select-control">
+          <span class="visually-hidden">Filter by brand</span>
+          <select aria-label="Filter by brand" [value]="selectedBrand()" (change)="setBrand($any($event.target).value)">
+            <option value="">All Brands</option>
+            @for (brand of brands(); track brand) { <option [value]="brand">{{ brand }}</option> }
+          </select>
+        </label>
+        <label class="select-control">
+          <span class="visually-hidden">Filter by availability</span>
+          <select aria-label="Filter by availability" [value]="selectedAvailability()"
+            (change)="setAvailability($any($event.target).value)">
+            <option value="all">All Products</option>
+            <option value="inStock">In Stock</option>
+            <option value="outOfStock">Out of Stock</option>
+          </select>
+        </label>
+        <label class="select-control">
+          <span class="visually-hidden">Filter by price</span>
+          <select aria-label="Filter by price" [value]="selectedPrice()" (change)="setPrice($any($event.target).value)">
+            <option value="all">All Prices</option>
+            <option value="under-100">Under $100</option>
+            <option value="100-300">$100 - $300</option>
+            <option value="300-500">$300 - $500</option>
+            <option value="500-1000">$500 - $1000</option>
+            <option value="1000-plus">$1000+</option>
+          </select>
+        </label>
+        <label class="select-control">
+          <span class="visually-hidden">Sort products</span>
+          <select aria-label="Sort products" [value]="selectedSort()" (change)="setSort($any($event.target).value)">
+            <option value="default">Sort: Default</option>
+            <option value="priceAsc">Price: Low to High</option>
+            <option value="priceDesc">Price: High to Low</option>
+            <option value="nameAsc">Name: A to Z</option>
+            <option value="nameDesc">Name: Z to A</option>
+            <option value="newest">Newest</option>
+          </select>
+        </label>
+      </div>
+    </div>
+
+    @if (products().length) {
+    <div class="products-grid">
+      @for (product of products(); track product._id) { <app-product-card [product]="product" /> }
+    </div>
+
+    @if (totalPages() > 1) {
+    <nav class="pagination" aria-label="Products pagination">
+      <button type="button" (click)="goToPage(currentPage() - 1)" [disabled]="currentPage() === 1">Previous</button>
+      <div class="page-numbers">
+        @for (page of pageNumbers(); track $index) {
+        @if (page === 'ellipsis') { <span class="page-ellipsis">…</span> }
+        @else {
+        <button type="button" [class.current-page]="page === currentPage()"
+          [attr.aria-current]="page === currentPage() ? 'page' : null" (click)="goToPage(page)">{{ page }}</button>
+        }
+        }
+      </div>
+      <button type="button" (click)="goToPage(currentPage() + 1)"
+        [disabled]="currentPage() === totalPages()">Next</button>
+    </nav>
+    }
+    } @else if (loading()) {
+    <div class="page-state" role="status">Loading products...</div>
+    } @else if (total() === 0) {
+    <div class="empty-state">
+      <h2>No products found</h2>
+      <p>Try adjusting your filters or search.</p>
+      <button class="empty-state-clear" type="button" (click)="clearFilters()">Clear Filters</button>
+    </div>
+    }
+
+    @if (loading() && products().length) { <div class="loading-overlay" role="status">Updating products…</div> }
+  </section>
+  }
+</main>

@@ -1,0 +1,90 @@
+<main class="admin-page">
+  <header class="admin-heading">
+    <div>
+      <span class="eyebrow">CATALOG</span>
+      <h1>Products</h1>
+      <p>Manage your hardware catalog.</p>
+    </div>
+    <button class="btn primary" (click)="startCreate()">+ Add Product</button>
+  </header>
+  @if (error()) {
+    <div class="state error">{{ error() }}</div>
+  }
+  @if (message()) {
+    <div class="state success">{{ message() }}</div>
+  }
+  @if (formVisible()) {
+    <section class="panel" style="margin-bottom: 18px">
+      <div class="panel-head">
+        <div>
+          <h2>{{ editingId() ? 'Edit Product' : 'New Product' }}</h2>
+          <p>Keep product information clear and consistent.</p>
+        </div>
+        <button class="btn" (click)="cancel()">Close</button>
+      </div>
+      <form class="form-grid" [formGroup]="form" (ngSubmit)="save()">
+        <div class="form-group">
+          <label>Name</label><input formControlName="name" placeholder="Product name" />
+        </div>
+        <div class="form-group">
+          <label>Category</label><input formControlName="category" placeholder="CPU, GPU..." />
+        </div>
+        <div class="form-group">
+          <label>Brand</label><input formControlName="brand" placeholder="Brand" />
+        </div>
+        <div class="form-group">
+          <label>Price</label><input type="number" formControlName="price" />
+        </div>
+        <div class="form-group">
+          <label>Stock</label><input type="number" formControlName="stock" />
+        </div>
+        <div class="form-group">
+          <label>Image</label
+          ><input type="file" accept="image/*" (change)="onImageSelected($event)" />
+          @if (imagePreview()) {
+            <img class="image-preview" [src]="imagePreview()" alt="Preview" />
+          }
+        </div>
+        <div class="form-group full">
+          <label>Description</label
+          ><textarea formControlName="description" placeholder="Product description"></textarea>
+        </div>
+        <div class="actions">
+          <button class="btn primary" type="submit" [disabled]="saving() === 'product'">
+            {{ saving() === 'product' ? 'Saving...' : 'Save Product' }}</button
+          ><button class="btn" type="button" (click)="cancel()">Cancel</button>
+        </div>
+      </form>
+    </section>
+  }
+  <section class="panel">
+    <div class="panel-head">
+      <div>
+        <h2>Catalog</h2>
+        <p>{{ products().length }} products</p>
+      </div>
+      <button class="btn" (click)="load()">Refresh</button>
+    </div>
+    @if (loading()) {
+      <div class="state">Loading products...</div>
+    } @else {
+      <div class="list">
+        @for (p of products(); track p._id) {
+          <div class="list-row">
+            <div>
+              <strong>{{ p.name }}</strong
+              ><span>{{ p.brand }} · {{ p.category }} · {{ p.stock }} in stock</span>
+            </div>
+            <div class="actions">
+              <strong>{{ p.price | currency: 'USD' }}</strong
+              ><button class="btn" (click)="startEdit(p)">Edit</button
+              ><button class="btn danger" (click)="remove(p)" [disabled]="saving() === p._id">
+                Delete
+              </button>
+            </div>
+          </div>
+        }
+      </div>
+    }
+  </section>
+</main>

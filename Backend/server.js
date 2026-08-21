@@ -4,15 +4,20 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const cors = require("cors");
 const helmet = require("helmet");
+const path = require("path");
 const rateLimit = require("express-rate-limit");
 
 const connectDB = require("./config/db");
 
 const authRoutes = require("./routes/authRoutes");
+const userRoutes = require("./routes/userRoutes");
 const productRoutes = require("./routes/productRoutes");
 const cartRoutes = require("./routes/cartRoutes");
 const orderRoutes = require("./routes/orderRoutes");
 const adminRoutes = require("./routes/adminRoutes");
+
+const chatRoutes = require("./routes/chatRoutes");
+
 
 const app = express();
 
@@ -29,6 +34,7 @@ const globalLimiter = rateLimit({
 app.use(globalLimiter);
 
 app.use(express.json());
+app.use("/uploads", express.static(path.join(__dirname, "uploads")));
 
 app.use(cookieParser());
 
@@ -50,7 +56,11 @@ app.get("/", (req, res) => {
 
 app.use("/api/auth", authRoutes);
 
+app.use("/api/users", userRoutes);
+
 app.use("/api/products", productRoutes);
+
+app.use("/api/chat", chatRoutes);
 
 app.use("/api/cart", cartRoutes);
 
@@ -59,6 +69,8 @@ app.use("/api/orders", orderRoutes);
 app.use("/api/admin", adminRoutes);
 
 connectDB();
+
+
 
 app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);

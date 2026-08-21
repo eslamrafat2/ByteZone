@@ -1,0 +1,161 @@
+:host {
+  display: block;
+}
+.admin-shell-page {
+  min-height: calc(100vh - 80px);
+  display: grid;
+  grid-template-columns: 235px 1fr;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.admin-sidebar {
+  position: sticky;
+  top: 78px;
+  height: calc(100vh - 78px);
+  display: flex;
+  flex-direction: column;
+  padding: 22px 14px;
+  border-right: 1px solid #e2e8f0;
+  background: #fff;
+}
+.admin-brand {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 8px 10px;
+  color: #0f172a;
+  text-decoration: none;
+  font-weight: 900;
+}
+.admin-brand img {
+  width: 38px;
+  height: 38px;
+  object-fit: contain;
+}
+.admin-brand span {
+  display: grid;
+  gap: 1px;
+}
+.admin-brand small {
+  color: #2563eb;
+  font-size: 9px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+.admin-sidebar nav {
+  display: grid;
+  gap: 5px;
+  margin-top: 30px;
+}
+.admin-sidebar nav a {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 11px 12px;
+  border-radius: 10px;
+  color: #64748b;
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 700;
+}
+.admin-sidebar nav a span {
+  width: 20px;
+  text-align: center;
+}
+.admin-sidebar nav a:hover,
+.admin-sidebar nav a.active {
+  background: #eff6ff;
+  color: #2563eb;
+}
+.admin-side-footer {
+  margin-top: auto;
+  padding: 12px;
+}
+.admin-user {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  margin-bottom: 14px;
+}
+.admin-user > span {
+  width: 34px;
+  height: 34px;
+  display: grid;
+  place-items: center;
+  border-radius: 50%;
+  background: #dbeafe;
+  color: #2563eb;
+  font-weight: 900;
+}
+.admin-user div {
+  min-width: 0;
+  display: grid;
+  gap: 2px;
+}
+.admin-user strong {
+  font-size: 12px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.admin-user small {
+  color: #94a3b8;
+  font-size: 10px;
+}
+.admin-side-footer > a {
+  color: #2563eb;
+  font-size: 11px;
+  text-decoration: none;
+}
+.admin-main {
+  min-width: 0;
+}
+.admin-mobile-header {
+  display: none;
+}
+.admin-main > router-outlet + * {
+  min-width: 0;
+}
+@media (max-width: 800px) {
+  .admin-shell-page {
+    display: block;
+  }
+  .admin-sidebar {
+    position: static;
+    height: auto;
+    display: block;
+    padding: 10px 12px;
+    border-right: 0;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .admin-sidebar .admin-brand,
+  .admin-side-footer {
+    display: none;
+  }
+  .admin-sidebar nav {
+    display: flex;
+    overflow-x: auto;
+    margin: 0;
+    gap: 5px;
+  }
+  .admin-sidebar nav a {
+    flex: 0 0 auto;
+  }
+  .admin-mobile-header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 12px 15px;
+    background: #fff;
+    border-bottom: 1px solid #e2e8f0;
+  }
+  .admin-mobile-header .admin-brand {
+    padding: 0;
+  }
+  .admin-mobile-header a:last-child {
+    color: #2563eb;
+    font-size: 12px;
+    font-weight: 800;
+    text-decoration: none;
+  }
+}

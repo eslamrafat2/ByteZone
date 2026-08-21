@@ -1,0 +1,35 @@
+<main class="checkout-page">
+    <section class="checkout-shell">
+        <div class="heading">
+            <div>
+                <p class="eyebrow">Checkout</p>
+                <h1>Delivery Details</h1>
+                <p>Enter your contact and delivery information before placing the order.</p>
+            </div><a routerLink="/cart">Back to Cart</a>
+        </div>@if(loading()){<div class="state">Loading...</div>}@else if(!cart.items().length){<div class="state">Your
+            cart is empty. <a routerLink="/products">Shop now</a></div>}@else{<div class="checkout-grid">
+            <form class="details-card" [formGroup]="form" (ngSubmit)="submit()"><label>Full Name<input
+                        formControlName="fullName"
+                        placeholder="Your full name"></label>@if(form.controls.fullName.touched&&form.controls.fullName.invalid){<small>Enter
+                    your full name.</small>}<label>Phone Number<input formControlName="phone"
+                        placeholder="01xxxxxxxxx"></label>@if(form.controls.phone.touched&&form.controls.phone.invalid){<small>Enter
+                    a valid phone number.</small>}<label>Address<input formControlName="address"
+                        placeholder="Street, building, apartment"></label><label>City<input formControlName="city"
+                        placeholder="City"></label><label>Order Notes <span>(optional)</span><textarea
+                        formControlName="notes" rows="4"
+                        placeholder="Any delivery instructions"></textarea></label>@if(error()){<div class="error">
+                    {{error()}}</div>}<button type="submit" [disabled]="submitting()">{{submitting()?'Placing
+                    Order...':'Place Order'}}</button></form>
+            <aside class="summary">
+                <h2>Order Summary</h2>@for(item of cart.items();track item.product._id){<div class="line">
+                    <span>{{item.product.name}} ×
+                        {{item.quantity}}</span><strong>{{item.product.price*item.quantity|currency:'USD'}}</strong>
+                </div>}
+                <hr>
+                <div class="line"><span>Subtotal</span><strong>{{cart.subtotal()|currency:'USD'}}</strong></div>
+                <div class="line"><span>Shipping</span><strong>$20.00</strong></div>
+                <div class="total"><span>Total</span><strong>{{cart.subtotal()+20|currency:'USD'}}</strong></div>
+            </aside>
+        </div>}
+    </section>
+</main>

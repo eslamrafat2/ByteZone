@@ -1,0 +1,123 @@
+<main class="compare-page">
+    <section class="compare-header">
+        <div class="compare-heading-wrap">
+            <p class="eyebrow">Compare Products</p>
+            <h1>Compare selected hardware side by side.</h1>
+        </div>
+
+        @if (selectedIds().length) {
+        <button type="button" class="clear-button" (click)="clearCompare()">Clear All</button>
+        }
+    </section>
+
+    @if (loading()) {
+    <div class="page-state" role="status">Loading compare list...</div>
+    } @else if (errorMessage()) {
+    <div class="page-state page-state-error" role="alert">{{ errorMessage() }}</div>
+    } @else if (!selectedIds().length) {
+    <div class="empty-state">
+        <div class="empty-state-card">
+            <p class="eyebrow">Compare Products</p>
+            <h2>No products to compare.</h2>
+            <p>Add products from the Products page to compare their specifications.</p>
+            <button type="button" class="browse-button" routerLink="/products">Browse Products</button>
+        </div>
+    </div>
+    } @else {
+    <div class="compare-summary">Compare: {{ compareCount() }} / 4</div>
+
+    <div class="compare-table-wrapper">
+        <table class="compare-table">
+            <thead>
+                <tr>
+                    <th class="spec-header">Products</th>
+                    @for (product of products(); track product._id) {
+                    <th class="product-column-header">
+                        <div class="compare-product-cell">
+                            <div class="product-image-shell">
+                                <img [src]="product.image ? (product.image.startsWith('/uploads/') ? 'http://localhost:3000' + product.image : '/images/products/' + product.image) : ''"
+                                    [alt]="product.name" />
+                            </div>
+
+                            <div class="product-meta">
+                                <span class="product-brand">{{ product.brand }}</span>
+                                <h2>{{ product.name }}</h2>
+                                <span class="product-category">{{ product.category }}</span>
+                            </div>
+
+                            <div class="price-row">
+                                <span class="price-label">Price</span>
+                                <strong>{{ product.price | currency: 'USD' }}</strong>
+                            </div>
+
+                            <div class="stock-row">
+                                <span class="stock-badge" [class.in-stock]="product.stock > 0"
+                                    [class.out-of-stock]="product.stock === 0">
+                                    {{ product.stock > 0 ? 'In stock' : 'Out of stock' }}
+                                </span>
+                            </div>
+
+                            <div class="product-actions">
+                                <button type="button" class="add-cart-button" [disabled]="product.stock === 0"
+                                    (click)="addToCart(product)">
+                                    {{ isInCart(product._id) ? 'Added to Cart' : 'Add to Cart' }}
+                                </button>
+                                <button type="button" class="details-button" [routerLink]="['/products', product._id]">
+                                    View Details
+                                </button>
+                            </div>
+
+                            <button type="button" class="remove-button" (click)="removeProduct(product._id)">
+                                Remove
+                            </button>
+                        </div>
+                    </th>
+                    }
+                </tr>
+            </thead>
+            <tbody>
+                <tr [class.different-row]="isRowDifferent(products().map(product => product.brand))">
+                    <th>Brand</th>
+                    @for (product of products(); track product._id) {
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.brand))">{{ product.brand }}
+                    </td>
+                    }
+                </tr>
+                <tr [class.different-row]="isRowDifferent(products().map(product => product.category))">
+                    <th>Category</th>
+                    @for (product of products(); track product._id) {
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.category))">{{
+                        product.category }}</td>
+                    }
+                </tr>
+                <tr [class.different-row]="isRowDifferent(products().map(product => product.price))">
+                    <th>Price</th>
+                    @for (product of products(); track product._id) {
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.price))">
+                        {{ product.price | currency: 'USD' }}
+                    </td>
+                    }
+                </tr>
+                <tr [class.different-row]="isRowDifferent(products().map(product => product.stock))">
+                    <th>Stock</th>
+                    @for (product of products(); track product._id) {
+                    <td [class.different-cell]="isRowDifferent(products().map(item => item.stock))">
+                        {{ product.stock > 0 ? 'In stock' : 'Out of stock' }}
+                    </td>
+                    }
+                </tr>
+                @for (key of comparisonKeys(); track key) {
+                <tr [class.different-row]="isValueDifferent(key)">
+                    <th>{{ formatSpecLabel(key) }}</th>
+                    @for (product of products(); track product._id) {
+                    <td [class.different-cell]="isValueDifferent(key)">
+                        {{ formatSpecValue(product.specifications?.[key] ?? '—') }}
+                    </td>
+                    }
+                </tr>
+                }
+            </tbody>
+        </table>
+    </div>
+    }
+</main>

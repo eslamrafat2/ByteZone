@@ -4,79 +4,77 @@ const Product = require("../models/Product");
 
 const createOrder = async (req, res) => {
     try {
-        const cart = await Cart.findOne({
-            user: req.user._id
-        }).populate("items.product");
+        const { fullName, phone, address, city, notes = "" } = req.body;
+        if (!fullName?.trim() || !phone?.trim() || !address?.trim() || !city?.trim()) {
+            return res.status(400).json({ message: "Full name, phone, address and city are required" });
+        }
+        if (!/^[0-9+\s()\-]{7,20}$/.test(phone.trim())) {
+            return res.status(400).json({ message: "Please enter a valid phone number" });
+        }
 
+        const cart = await Cart.findOne({ user: req.user._id }).populate("items.product");
         if (!cart || cart.items.length === 0) {
-            return res.status(400).json({
-                message: "Cart is empty"
-            });
+            return res.status(400).json({ message: "Cart is empty" });
         }
 
         let subtotal = 0;
-
         const orderItems = [];
-
         for (const item of cart.items) {
             const product = item.product;
-
-            if (!product) {
-                return res.status(400).json({
-                    message: "Product no longer exists"
-                });
+            if (!product) return res.status(400).json({ message: "Product no longer exists" });
+            if (!Number.isInteger(item.quantity) || item.quantity < 1) {
+                return res.status(400).json({ message: `Invalid quantity for ${product.name}` });
             }
-
             if (product.stock < item.quantity) {
-                return res.status(400).json({
-                    message: `Not enough stock for ${product.name}`
-                });
+                return res.status(409).json({ message: `${product.name} only has ${product.stock} item(s) left in stock. Please update your cart before checkout.` });
             }
-
             subtotal += product.price * item.quantity;
-
-            orderItems.push({
-                product: product._id,
-                name: product.name,
-                price: product.price,
-                quantity: item.quantity
-            });
+            orderItems.push({ product: product._id, name: product.name, price: product.price, quantity: item.quantity });
         }
 
         const shipping = 20;
         const total = subtotal + shipping;
+        const decremented = [];
 
-        const order = await Order.create({
-            user: req.user._id,
-            items: orderItems,
-            subtotal,
-            shipping,
-            total
-        });
-
+        // Decrement stock atomically per item. The stock condition prevents a stale cart
+        // from buying more than is currently available, even if stock changed after checkout opened.
         for (const item of cart.items) {
-            await Product.findByIdAndUpdate(
-                item.product._id,
-                {
-                    $inc: {
-                        stock: -item.quantity
-                    }
-                }
+            const updatedProduct = await Product.findOneAndUpdate(
+                { _id: item.product._id, stock: { $gte: item.quantity } },
+                { $inc: { stock: -item.quantity } },
+                { new: true }
             );
+            if (!updatedProduct) {
+                for (const previous of decremented) {
+                    await Product.findByIdAndUpdate(previous.productId, { $inc: { stock: previous.quantity } });
+                }
+                return res.status(409).json({ message: `${item.product.name} is no longer available in the requested quantity. Please update your cart and try again.` });
+            }
+            decremented.push({ productId: item.product._id, quantity: item.quantity });
         }
 
-        cart.items = [];
-        await cart.save();
+        try {
+            const order = await Order.create({
+                user: req.user._id,
+                customer: { fullName: fullName.trim(), phone: phone.trim(), address: address.trim(), city: city.trim(), notes: typeof notes === "string" ? notes.trim() : "" },
+                items: orderItems,
+                subtotal,
+                shipping,
+                total
+            });
 
-        res.status(201).json({
-            status: "success",
-            order
-        });
+            cart.items = [];
+            await cart.save();
 
+            return res.status(201).json({ status: "success", order });
+        } catch (orderError) {
+            for (const previous of decremented) {
+                await Product.findByIdAndUpdate(previous.productId, { $inc: { stock: previous.quantity } });
+            }
+            throw orderError;
+        }
     } catch (error) {
-        res.status(500).json({
-            message: error.message
-        });
+        res.status(500).json({ message: error.message });
     }
 };
 

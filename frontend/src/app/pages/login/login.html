@@ -1,0 +1,33 @@
+<main class="auth-page">
+  <section class="auth-shell">
+    <div class="auth-showcase">
+      <a routerLink="/" class="auth-logo"><img src="/images/logo1.png" alt="ByteZone"> <span>ByteZone</span></a>
+      <div>
+        <span class="eyebrow">WELCOME BACK</span>
+        <h1>Your hardware journey starts here.</h1>
+        <p>Access your orders, manage your profile and keep building your perfect setup.</p>
+      </div>
+      <div class="auth-points"><span>✓ Trusted hardware</span><span>✓ Secure account</span><span>✓ Easy order tracking</span></div>
+    </div>
+
+    <div class="auth-card">
+      <div class="auth-header">
+        <span class="mobile-label">ACCOUNT</span>
+        <h2>Sign in</h2>
+        <p>Enter your details to continue to ByteZone.</p>
+      </div>
+
+      <form class="auth-form" [formGroup]="loginForm" (ngSubmit)="submit()">
+        <label><span>Email address</span><input type="email" formControlName="email" placeholder="you@example.com" autocomplete="email" />
+          @if (loginForm.get('email')?.touched && loginForm.get('email')?.invalid) { <small class="error-text">Please enter a valid email.</small> }
+        </label>
+        <label><span>Password</span><input type="password" formControlName="password" placeholder="Your password" autocomplete="current-password" />
+          @if (loginForm.get('password')?.touched && loginForm.get('password')?.invalid) { <small class="error-text">Password must be at least 6 characters.</small> }
+        </label>
+        @if (submitError) { <div class="form-message error">{{ submitError }}</div> }
+        <button class="primary-button" type="submit" [disabled]="loading">{{ loading ? 'Signing in...' : 'Sign In' }}</button>
+        <p class="switch-text">Don’t have an account? <a routerLink="/register">Create one</a></p>
+      </form>
+    </div>
+  </section>
+</main>

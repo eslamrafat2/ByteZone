@@ -129,7 +129,11 @@ const updateCartItem = async (req, res) => {
             });
         }
 
-        if (quantity > product.stock) {
+        if (!Number.isInteger(Number(quantity)) || Number(quantity) < 1) {
+            return res.status(400).json({ message: "Quantity must be at least 1" });
+        }
+
+        if (Number(quantity) > product.stock) {
             return res.status(400).json({
                 message: "Not enough stock"
             });

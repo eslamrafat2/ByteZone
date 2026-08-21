@@ -1,0 +1,42 @@
+<article class="product-card">
+  <div class="product-image-wrap">
+    @if (imageAvailable()) {
+    <img class="product-image" [src]="imageUrl()" [alt]="product().name" (error)="onImageError()" />
+    } @else {
+    <div class="image-fallback" role="img" [attr.aria-label]="product().name + ' image unavailable'">
+      <span>ByteZone</span>
+      <small>Image unavailable</small>
+    </div>
+    }
+  </div>
+
+  <div class="product-content">
+    <p class="product-brand">{{ product().brand }}</p>
+    <h2 class="product-name">{{ product().name }}</h2>
+    <p class="product-category">{{ product().category }}</p>
+
+    <div class="product-purchase-info">
+      <p class="product-price">{{ product().price | currency: 'USD' }}</p>
+      <span class="stock-status" [class.in-stock]="product().stock > 0" [class.out-of-stock]="product().stock === 0">
+        {{ product().stock > 0 ? product().stock + ' in stock' : 'Out of stock' }}
+      </span>
+    </div>
+
+    <div class="product-actions">
+      <button class="add-to-cart" type="button" [disabled]="product().stock === 0" (click)="addToCart()">
+        Add to Cart
+      </button>
+      @if (cartMessage()) { <p class="compare-feedback">{{ cartMessage() }}</p> }
+      <button class="view-details" type="button" [routerLink]="['/products', product()._id]">
+        View Details
+      </button>
+    </div>
+
+    <button class="compare-toggle" type="button" [class.added]="inCompare()" (click)="toggleCompare()">
+      {{ inCompare() ? 'Added to Compare' : 'Add to Compare' }}
+    </button>
+    @if (localMessage()) {
+    <p class="compare-feedback">{{ localMessage() }}</p>
+    }
+  </div>
+</article>

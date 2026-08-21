@@ -1,0 +1,177 @@
+<main class="product-details-page">
+    @if (productLoading()) {
+    <div class="page-state" role="status">Loading product...</div>
+    } @else if (productError()) {
+    <div class="page-state page-state-error" role="alert">{{ productError() }}</div>
+    } @else if (product(); as currentProduct) {
+    <section class="product-hero">
+        <div class="product-media">
+            @if (imageUrl()) {
+            <img class="product-image" [src]="imageUrl()" [alt]="currentProduct.name" />
+            } @else {
+            <div class="image-fallback" role="img" [attr.aria-label]="currentProduct.name + ' image unavailable'">
+                <span>ByteZone</span>
+                <small>Image unavailable</small>
+            </div>
+            }
+        </div>
+
+        <div class="product-summary">
+            <p class="product-brand">{{ currentProduct.brand }}</p>
+            <h1>{{ currentProduct.name }}</h1>
+            <p class="product-category">{{ currentProduct.category }}</p>
+            <p class="product-price">{{ currentProduct.price | currency: 'USD' }}</p>
+
+            <div class="stock-row">
+                <span class="stock-badge" [class.in-stock]="currentProduct.stock > 0"
+                    [class.out-of-stock]="currentProduct.stock === 0">
+                    {{ currentProduct.stock > 0 ? 'In stock' : 'Out of stock' }}
+                </span>
+                <span class="stock-quantity">{{ currentProduct.stock }} available</span>
+            </div>
+
+            <div class="quantity-row">
+                <span class="quantity-label">Quantity</span>
+                <div class="quantity-picker">
+                    <button type="button" (click)="adjustQuantity(-1)" [disabled]="currentProduct.stock === 0 || quantity() <= 1" aria-label="Decrease quantity">−</button>
+                    <span>{{ quantity() }}</span>
+                    <button type="button" (click)="adjustQuantity(1)" [disabled]="currentProduct.stock === 0 || quantity() >= currentProduct.stock" aria-label="Increase quantity">+</button>
+                </div>
+            </div>
+
+            <div class="action-row">
+                <button class="primary-action" type="button" [disabled]="currentProduct.stock === 0"
+                    (click)="onAddToCart()">
+                    Add to Cart
+                </button>
+                <button class="secondary-action" type="button" [disabled]="currentProduct.stock === 0"
+                    (click)="onBuyNow()">
+                    Buy Now
+                </button>
+                <button class="compare-action" type="button" [class.active]="productInCompare()"
+                    (click)="onAddToCompare()">
+                    {{ productInCompare() ? 'Added to Compare' : 'Add to Compare' }}
+                </button>
+            </div>
+
+            @if (compareCount() > 0) {
+            <p class="compare-count">Compare: {{ compareCount() }} / 4</p>
+            }
+
+            @if (compareMessage()) {
+            <p class="compare-message">{{ compareMessage() }}</p>
+            }
+        </div>
+    </section>
+
+    <section class="info-grid">
+        <article class="detail-card">
+            <h2>Description</h2>
+            <p>{{ currentProduct.description || 'No description available for this product.' }}</p>
+        </article>
+
+        <article class="detail-card">
+            <h2>Specifications</h2>
+            @if (currentProduct.specifications && Object.keys(currentProduct.specifications).length) {
+            <dl class="specifications-list">
+                @for (spec of Object.entries(currentProduct.specifications); track spec[0]) {
+                <div class="spec-item">
+                    <dt>{{ spec[0] }}</dt>
+                    <dd>{{ spec[1] }}</dd>
+                </div>
+                }
+            </dl>
+            } @else {
+            <p class="empty-specs">No specifications available for this product.</p>
+            }
+        </article>
+    </section>
+
+    <section class="reviews-panel">
+        <div class="reviews-header">
+            <h2>Customer Reviews</h2>
+            @if (reviews().length) {
+            <div class="avg-rating">
+                <span class="stars large">{{ starRating(averageRating()) }}</span>
+                <span>{{ averageRating().toFixed(1) }} / 5</span>
+            </div>
+            }
+        </div>
+
+        @if (reviews().length) {
+        <p class="review-summary">Based on {{ reviews().length }} review{{ reviews().length === 1 ? '' : 's' }}.</p>
+        }
+
+        @if (reviewsLoading()) {
+        <div class="mini-state" role="status">Loading reviews...</div>
+        } @else if (reviewsError()) {
+        <div class="mini-state error" role="alert">{{ reviewsError() }}</div>
+        } @else if (reviews().length) {
+        <div class="review-list">
+            @for (review of reviews(); track review._id) {
+            <article class="review-item">
+                <div class="review-topline">
+                    <strong>{{ review.user?.name || 'Customer' }}</strong>
+                    <span>{{ review.createdAt | date: 'mediumDate' }}</span>
+                </div>
+                <p class="review-stars">{{ '★'.repeat(review.rating) }}{{ '☆'.repeat(5 - review.rating) }}</p>
+                <p>{{ review.comment }}</p>
+            </article>
+            }
+        </div>
+        } @else {
+        <div class="mini-state">No reviews yet. Be the first to review this product.</div>
+        }
+
+        @if (reviewSuccess()) {
+        <div class="mini-state success">{{ reviewSuccess() }}</div>
+        }
+
+        @if (reviewEligibilityLoading()) {
+        <div class="mini-state">Checking review eligibility...</div>
+        } @else if (alreadyReviewed()) {
+        <div class="mini-state">You have already reviewed this product.</div>
+        } @else if (canReview()) {
+        <form class="review-form" [formGroup]="reviewForm" (ngSubmit)="onSubmitReview()">
+            <h3>Write a review</h3>
+            <p class="review-hint">You can review this product because it is in one of your orders.</p>
+            <label>
+                <span>Rating</span>
+                <select formControlName="rating">
+                    <option [value]="5">5 stars</option>
+                    <option [value]="4">4 stars</option>
+                    <option [value]="3">3 stars</option>
+                    <option [value]="2">2 stars</option>
+                    <option [value]="1">1 star</option>
+                </select>
+            </label>
+            <label>
+                <span>Comment</span>
+                <textarea formControlName="comment" rows="4" placeholder="Share your experience with this product"></textarea>
+            </label>
+            <button class="submit-review" type="submit" [disabled]="reviewsLoading()">
+                {{ reviewsLoading() ? 'Submitting...' : 'Submit Review' }}
+            </button>
+        </form>
+        } @else if (authService.isLoggedIn()) {
+        <div class="mini-state">You can write a review after purchasing this product.</div>
+        } @else {
+        <div class="mini-state">Please log in and purchase this product before writing a review.</div>
+        }
+    </section>
+
+    <section class="related-section">
+        <h2>Related Products</h2>
+        @if (relatedProducts().length) {
+        <div class="related-grid">
+            @for (relatedProduct of relatedProducts(); track relatedProduct._id) {
+            <app-product-card [product]="relatedProduct" />
+            }
+        </div>
+        } @else {
+        <p class="mini-state">No related products found for this category.</p>
+        }
+    </section>
+    }
+</main>
+@if (cartMessage()) { <p class="cart-feedback">{{ cartMessage() }}</p> }

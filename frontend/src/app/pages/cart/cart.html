@@ -1,0 +1,88 @@
+<main class="cart-page">
+  <section class="cart-shell">
+    <div class="page-heading">
+      <div>
+        <p class="eyebrow">Shopping cart</p>
+        <h1>Your Cart</h1>
+      </div>
+      <a routerLink="/products">Continue Shopping</a>
+    </div>
+
+    @if (loading()) {
+      <div class="state">Loading your cart...</div>
+    } @else if (error()) {
+      <div class="state error">{{ error() }}</div>
+    } @else if (!cartService.items().length) {
+      <div class="empty">
+        <h2>Your cart is empty</h2>
+        <p>Add some hardware to get started.</p>
+        <a routerLink="/products">Browse Products</a>
+      </div>
+    } @else {
+      <div class="cart-layout">
+        <div class="cart-items">
+          @for (item of cartService.items(); track item.product._id) {
+            <article
+              class="cart-item"
+              [class.stale-item]="item.product.stock < item.quantity || item.product.stock === 0"
+            >
+              <img
+                [src]="
+                  item.product.image?.startsWith('/uploads/')
+                    ? 'http://localhost:3000' + item.product.image
+                    : '/images/products/' + item.product.image
+                "
+                [alt]="item.product.name"
+              />
+              <div class="item-info">
+                <span>{{ item.product.brand }}</span>
+                <h2>{{ item.product.name }}</h2>
+                <strong>{{ item.product.price | currency: 'USD' }}</strong>
+              </div>
+              <div class="quantity">
+                <button
+                  type="button"
+                  (click)="changeQuantity(item.product._id, item.quantity - 1)"
+                  [disabled]="item.quantity <= 1 || actionId() === item.product._id"
+                >
+                  −
+                </button>
+                <b>{{ item.quantity }}</b>
+                <button
+                  type="button"
+                  (click)="changeQuantity(item.product._id, item.quantity + 1)"
+                  [disabled]="
+                    item.quantity >= item.product.stock || actionId() === item.product._id
+                  "
+                >
+                  +
+                </button>
+              </div>
+              <div class="line-total">
+                {{ item.product.price * item.quantity | currency: 'USD' }}
+              </div>
+              <button class="remove" type="button" (click)="remove(item.product._id)">
+                Remove
+              </button>
+            </article>
+          }
+        </div>
+        <aside class="summary">
+          <h2>Order Summary</h2>
+          <div>
+            <span>Subtotal</span><strong>{{ cartService.subtotal() | currency: 'USD' }}</strong>
+          </div>
+          <div><span>Shipping</span><strong>$20.00</strong></div>
+          <hr />
+          <div class="total">
+            <span>Total</span><strong>{{ cartService.subtotal() + 20 | currency: 'USD' }}</strong>
+          </div>
+          <button type="button" routerLink="/checkout" [disabled]="cartService.hasStockIssue()">
+            Checkout
+          </button>
+          <a routerLink="/my-orders">View My Orders</a>
+        </aside>
+      </div>
+    }
+  </section>
+</main>

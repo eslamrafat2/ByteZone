@@ -1,0 +1,62 @@
+<main class="admin-page">
+  <header class="admin-heading">
+    <div>
+      <span class="eyebrow">ADMINISTRATION</span>
+      <h1>Overview</h1>
+      <p>A quick look at ByteZone performance.</p>
+    </div>
+    <button class="btn" type="button" (click)="load()">Refresh</button>
+  </header>
+
+  @if (loading()) {
+    <div class="state">Loading dashboard...</div>
+  } @else if (error()) {
+    <div class="state error">{{ error() }}</div>
+  } @else if (dashboard(); as d) {
+    <section class="stats">
+      <article class="stat-card">
+        <span>Products</span>
+        <strong>{{ d.products }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>Users</span>
+        <strong>{{ d.users }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>Orders</span>
+        <strong>{{ d.orders }}</strong>
+      </article>
+      <article class="stat-card">
+        <span>Revenue</span>
+        <strong>{{ d.revenue | currency: 'USD' }}</strong>
+      </article>
+    </section>
+
+    <section class="panel">
+      <div class="panel-head">
+        <div>
+          <h2>Recent Orders</h2>
+          <p>The latest activity from your store.</p>
+        </div>
+        <a class="btn" routerLink="/admin/orders">View all</a>
+      </div>
+
+      @if (orders().length === 0) {
+        <div class="state">No orders yet.</div>
+      } @else {
+        <div class="list">
+          @for (o of orders(); track o._id) {
+            <div class="list-row">
+              <div>
+                <strong>#{{ o._id.slice(-8).toUpperCase() }}</strong>
+                <span>{{ getCustomerName(o) }}</span>
+                <small>{{ o.createdAt | date: 'medium' }}</small>
+              </div>
+              <strong>{{ o.total | currency: 'USD' }}</strong>
+            </div>
+          }
+        </div>
+      }
+    </section>
+  }
+</main>

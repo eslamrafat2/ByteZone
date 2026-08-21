@@ -1,0 +1,101 @@
+:host {
+  display: block;
+}
+.info-page {
+  min-height: 70vh;
+  background: #f8fafc;
+  color: #0f172a;
+}
+.info-hero {
+  padding: 90px 0 70px;
+  background: linear-gradient(135deg, #eff6ff, #fff 60%, #f5f3ff);
+  border-bottom: 1px solid #e2e8f0;
+}
+.info-shell {
+  width: min(1100px, 92%);
+  margin: 0 auto;
+}
+.info-hero span {
+  color: #2563eb;
+  font-size: 12px;
+  font-weight: 800;
+  letter-spacing: 0.14em;
+}
+.info-hero h1 {
+  margin: 10px 0 14px;
+  font-size: clamp(38px, 6vw, 62px);
+  letter-spacing: -1.5px;
+}
+.info-hero p {
+  max-width: 680px;
+  margin: 0;
+  color: #64748b;
+  font-size: 17px;
+  line-height: 1.8;
+}
+.info-content {
+  padding: 55px 0 90px;
+}
+.contact-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+.contact-grid article,
+.policy-card > div {
+  padding: 28px;
+  border: 1px solid #e2e8f0;
+  border-radius: 18px;
+  background: #fff;
+  box-shadow: 0 12px 35px rgba(15, 23, 42, 0.06);
+}
+.info-icon {
+  width: 42px;
+  height: 42px;
+  display: grid;
+  place-items: center;
+  border-radius: 12px;
+  background: #eff6ff;
+  color: #2563eb;
+  font-weight: 800;
+}
+.contact-grid h2 {
+  margin: 18px 0 8px;
+}
+.contact-grid p,
+.policy-card p {
+  color: #64748b;
+  line-height: 1.7;
+}
+.contact-grid a {
+  color: #2563eb;
+  font-weight: 700;
+  text-decoration: none;
+}
+.policy-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+.policy-card > div > span {
+  color: #2563eb;
+  font-weight: 800;
+}
+.policy-card h2 {
+  margin: 8px 0;
+}
+.policy-card p {
+  margin-bottom: 0;
+}
+@media (max-width: 750px) {
+  .info-hero {
+    padding: 65px 0 50px;
+  }
+  .contact-grid,
+  .policy-card {
+    grid-template-columns: 1fr;
+  }
+  .info-content {
+    padding: 35px 0 60px;
+  }
+}

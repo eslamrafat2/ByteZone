@@ -1,0 +1,71 @@
+<main class="profile-page">
+  <section class="profile-shell">
+    @if (loading) {
+      <div class="state-box">Loading your profile...</div>
+    } @else if (error) {
+      <div class="state-box error">{{ error }}</div>
+    } @else if (getSafeUser(); as currentUser) {
+      <header class="profile-hero">
+        <div class="profile-identity">
+          <div class="profile-avatar">{{ currentUser.name.charAt(0).toUpperCase() }}</div>
+          <div>
+            <span class="eyebrow">My account</span>
+            <h1>{{ currentUser.name }}</h1>
+            <p>{{ currentUser.email }}</p>
+          </div>
+        </div>
+        @if (!editMode) {
+          <button class="primary-button" type="button" (click)="startEdit()">Edit Profile</button>
+        }
+      </header>
+
+      <div class="profile-grid">
+        <section class="profile-panel">
+          <div class="panel-heading"><span>01</span><div><h2>Personal information</h2><p>Keep your account details up to date.</p></div></div>
+
+          @if (editMode) {
+            <form class="profile-form" [formGroup]="profileForm" (ngSubmit)="saveProfile()">
+              <label><span>Name</span><input type="text" formControlName="name" /></label>
+              @if (profileForm.get('name')?.touched && profileForm.get('name')?.invalid) { <small class="error-text">Enter a name with at least 2 characters.</small> }
+              <label><span>Email</span><input type="email" formControlName="email" /></label>
+              @if (profileForm.get('email')?.touched && profileForm.get('email')?.invalid) { <small class="error-text">Enter a valid email address.</small> }
+              @if (submitError) { <div class="state-box error">{{ submitError }}</div> }
+              <div class="profile-actions">
+                <button class="primary-button" type="submit" [disabled]="saving">{{ saving ? 'Saving...' : 'Save Changes' }}</button>
+                <button class="secondary-button" type="button" (click)="cancelEdit()" [disabled]="saving">Cancel</button>
+              </div>
+            </form>
+          } @else {
+            <div class="info-list">
+              <div><span>Full name</span><strong>{{ currentUser.name }}</strong></div>
+              <div><span>Email address</span><strong>{{ currentUser.email }}</strong></div>
+              <div><span>Account type</span><strong>{{ currentUser.role === 'admin' ? 'Administrator' : 'Customer' }}</strong></div>
+            </div>
+          }
+
+          @if (successMessage) { <div class="state-box success">{{ successMessage }}</div> }
+        </section>
+
+        <section class="profile-panel">
+          <div class="panel-heading"><span>02</span><div><h2>Security</h2><p>Update your password securely.</p></div></div>
+          <form class="profile-form" [formGroup]="passwordForm" (ngSubmit)="changePassword()">
+            <label><span>Current password</span><input type="password" formControlName="currentPassword" autocomplete="current-password" /></label>
+            <label><span>New password</span><input type="password" formControlName="newPassword" autocomplete="new-password" /></label>
+            <label><span>Confirm new password</span><input type="password" formControlName="confirmPassword" autocomplete="new-password" /></label>
+            @if (passwordError) { <div class="state-box error">{{ passwordError }}</div> }
+            @if (passwordSuccess) { <div class="state-box success">{{ passwordSuccess }}</div> }
+            <button class="secondary-button wide" type="submit" [disabled]="passwordSaving">{{ passwordSaving ? 'Changing...' : 'Change Password' }}</button>
+          </form>
+        </section>
+      </div>
+
+      <section class="account-shortcuts">
+        <a routerLink="/my-orders"><strong>My Orders</strong><span>Track your purchases →</span></a>
+        <a routerLink="/products"><strong>Continue Shopping</strong><span>Browse hardware →</span></a>
+        @if (currentUser.role === 'admin') { <a routerLink="/admin"><strong>Admin Dashboard</strong><span>Manage ByteZone →</span></a> }
+      </section>
+    } @else {
+      <div class="state-box">No profile found.</div>
+    }
+  </section>
+</main>

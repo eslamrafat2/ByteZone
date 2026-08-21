@@ -1,0 +1,55 @@
+<main class="admin-page">
+  <header class="admin-heading">
+    <div>
+      <span class="eyebrow">CONTENT</span>
+      <h1>Reviews</h1>
+      <p>Approve customer reviews before they appear publicly.</p>
+    </div>
+  </header>
+  @if (error()) {
+    <div class="state error">{{ error() }}</div>
+  }
+  <section class="panel">
+    <div class="filter-row">
+      <button [class.active]="filter() === 'pending'" (click)="setFilter('pending')">Pending</button
+      ><button [class.active]="filter() === 'approved'" (click)="setFilter('approved')">
+        Approved</button
+      ><button [class.active]="filter() === 'all'" (click)="setFilter('all')">All</button>
+    </div>
+    @if (loading()) {
+      <div class="state">Loading reviews...</div>
+    } @else if (!reviews().length) {
+      <div class="state">No reviews in this filter.</div>
+    } @else {
+      @for (r of reviews(); track r._id) {
+        <article class="review-row">
+          <div class="review-main">
+            <strong>{{ r.product?.name || 'Product' }}</strong
+            ><span>{{ r.user?.name || 'Customer' }} · {{ r.user?.email || '' }}</span>
+            <p class="stars">{{ '★'.repeat(r.rating) }}{{ '☆'.repeat(5 - r.rating) }}</p>
+            <p>{{ r.comment }}</p>
+            <small>{{ r.createdAt | date: 'medium' }}</small>
+          </div>
+          <div class="actions">
+            @if (!r.approved) {
+              <button
+                class="btn primary"
+                (click)="approve(r, true)"
+                [disabled]="saving() === r._id"
+              >
+                Approve
+              </button>
+            } @else {
+              <button class="btn" (click)="approve(r, false)" [disabled]="saving() === r._id">
+                Unpublish
+              </button>
+            }
+            <button class="btn danger" (click)="remove(r)" [disabled]="saving() === r._id">
+              Delete
+            </button>
+          </div>
+        </article>
+      }
+    }
+  </section>
+</main>

@@ -1,0 +1,65 @@
+<main class="auth-page">
+  <section class="auth-card">
+    <div class="auth-header">
+      <p class="eyebrow">Create account</p>
+      <h1>Register</h1>
+    </div>
+
+    <form class="auth-form" [formGroup]="registerForm" (ngSubmit)="submit()">
+      <label>
+        <span>Name</span>
+        <input type="text" formControlName="name" placeholder="Your name" />
+        @if (registerForm.get('name')?.touched && registerForm.get('name')?.invalid) {
+          <small class="error-text">Name is required and must be at least 2 characters.</small>
+        }
+      </label>
+
+      <label>
+        <span>Email</span>
+        <input type="email" formControlName="email" placeholder="you@example.com" />
+        @if (registerForm.get('email')?.touched && registerForm.get('email')?.invalid) {
+          <small class="error-text">Please enter a valid email.</small>
+        }
+      </label>
+
+      <label>
+        <span>Password</span>
+        <input type="password" formControlName="password" placeholder="Minimum 6 characters" />
+        @if (registerForm.get('password')?.touched && registerForm.get('password')?.invalid) {
+          <small class="error-text">Password must be at least 6 characters.</small>
+        }
+      </label>
+
+      <label>
+        <span>Confirm Password</span>
+        <input
+          type="password"
+          formControlName="confirmPassword"
+          placeholder="Repeat your password"
+        />
+        @if (
+          registerForm.get('confirmPassword')?.touched && registerForm.hasError('passwordMismatch')
+        ) {
+          <small class="error-text">Passwords do not match.</small>
+        }
+      </label>
+
+      @if (submitError) {
+        <div class="form-message error">{{ submitError }}</div>
+      }
+
+      @if (successMessage) {
+        <div class="form-message success">{{ successMessage }}</div>
+      }
+
+      <button class="primary-button" type="submit" [disabled]="loading">
+        {{ loading ? 'Creating account...' : 'Register' }}
+      </button>
+
+      <p class="switch-text">
+        Already have an account?
+        <a routerLink="/login">Login here</a>
+      </p>
+    </form>
+  </section>
+</main>
