@@ -9,27 +9,42 @@ export const authInterceptor: HttpInterceptorFn = (req, next) => {
   const authService = inject(AuthService);
   const router = inject(Router);
 
+  const localApiUrl = 'http://localhost:3000';
+  const productionApiUrl = 'https://bytezone.onrender.com';
+
+  const isProduction =
+    typeof window !== 'undefined' &&
+    window.location.hostname !== 'localhost' &&
+    window.location.hostname !== '127.0.0.1';
+
+  const apiRequest =
+    isProduction && req.url.startsWith(localApiUrl)
+      ? req.clone({
+          url: req.url.replace(localApiUrl, productionApiUrl),
+        })
+      : req;
+
   const accessToken = authService.accessToken();
-  const isAuthRequest = req.url.includes('/api/auth/');
+  const isAuthRequest = apiRequest.url.includes('/api/auth/');
 
   const request =
     accessToken && !isAuthRequest
-      ? req.clone({
+      ? apiRequest.clone({
           setHeaders: {
             Authorization: `Bearer ${accessToken}`,
           },
           withCredentials: true,
         })
-      : req.clone({ withCredentials: true });
+      : apiRequest.clone({ withCredentials: true });
 
   return next(request).pipe(
     catchError((error: HttpErrorResponse) => {
       if (
         error.status !== 401 ||
-        req.url.includes('/api/auth/refresh-token') ||
-        req.url.includes('/api/auth/login') ||
-        req.url.includes('/api/auth/register') ||
-        req.url.includes('/api/auth/logout')
+        apiRequest.url.includes('/api/auth/refresh-token') ||
+        apiRequest.url.includes('/api/auth/login') ||
+        apiRequest.url.includes('/api/auth/register') ||
+        apiRequest.url.includes('/api/auth/logout')
       ) {
         return throwError(() => error);
       }
