@@ -99,6 +99,18 @@ export class Home implements OnDestroy {
     });
   }
 
+  imageUrl(image?: string): string {
+    if (!image) return '';
+    if (image.startsWith('/uploads/')) {
+      const apiBase = window.location.hostname === 'localhost'
+        ? 'http://localhost:3000'
+        : 'https://bytezone.onrender.com';
+      return `${apiBase}${image}`;
+    }
+    if (image.startsWith('http')) return image;
+    return `/images/products/${image}`;
+  }
+
   nextSlide(): void {
     this.activeSlide.update((index) => (index + 1) % this.slides.length);
     this.startTyping();
